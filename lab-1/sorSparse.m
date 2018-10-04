@@ -40,7 +40,7 @@ for k = 1:100
         sum1=0;
         sum2=0;
         
-        for j = rowBeginnings(i):rowBeginnings(i)+rowSplit(i)
+        for j = rowBeginnings(i):rowBeginnings(i)+rowSplit(i)-1
             column = A(2,j);
             value = A(3,j);
             
