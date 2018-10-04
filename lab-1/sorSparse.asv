@@ -16,7 +16,7 @@ for a = 1:i
 end
 
 if(any(diagonal == 0))
-    error("Diagonal element could not equal 0!");
+    error("Diagonal element could not equal 0!")
 
 x = ones(n,1);
 xnext = ones(n,1);
