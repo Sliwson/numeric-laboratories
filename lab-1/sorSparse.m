@@ -1,4 +1,4 @@
-function x = sorSparse(A,b,w)
+function x = sorSparse(A,b,w,xFirst, tolerance,maxIterations)
 %SORSPARSE Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -32,10 +32,13 @@ for a = 2:n
     rowBeginnings(a) = rowBeginnings(a-1)+rowSplit(a-1);
 end
 
-x = ones(n,1);
-xnext = ones(n,1);
+x = xFirst;
+xnext = xFirst;
 
-for k = 1:100
+flag = 0;
+iterations = 0;
+
+while flag == 0
     for i = 1:n
         sum1=0;
         sum2=0;
@@ -54,7 +57,21 @@ for k = 1:100
         xnext(i) = (1-w)*x(i) + w/diagonal(i)*(b(i)- sum1 - sum2);
     end
     
+    %checks 
+    if norm(x - xnext) < tolerance
+        flag = 1;
+    end
+    
+    if iterations > maxIterations
+        flag = 2;
+    end
+    
+    iterations = iterations + 1;
     x = xnext;
+end
+
+if (flag == 2)
+    error("The method is divergent");
 end
 
 end
