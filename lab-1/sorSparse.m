@@ -1,10 +1,20 @@
-function x = sorSparse(A,b,w,xFirst, tolerance,maxIterations)
-%SORSPARSE Summary of this function goes here
-%   Detailed explanation goes here
+function x = sorSparse(A, b, w, xFirst, epsilon, maxIterations)
+%SORSPARSE Funkcja rozwiazuje uklad rownan liniowych Ax = b metoda SOR
+%   A - macierz wejsciowa w postaci rozrzedzonej (kazda kolumna A zawiera
+%       indeks wiersza, kolumny oraz wartosc kazdego niezerowego elementu)
+%   b - wektor wyrazow wolnych
+%   w - parametr relaksacji metody SOR
+%   xFirst - przyblizenie poczatkowe
+%   epsilon - liczba rzeczywista okreslajaca warunek stopu (jezeli norma 
+%       z dwoch kolejnych przyblizen jest mniejsza od epsilon, zwracamy
+%       wynik)
+%   maxIterations - maksymalna liczba iteracji, jaka moze przeprowadzic
+%       algorytm
 
+%n - rozmiar wektora wyrazow wolnych
 [n, ~] = size(b);
 
-%check diagonal elements
+%sprawdzenie elementow lezacych na diagonali
 diagonal = zeros(1,n);
 
 [~, k] = size(A);
@@ -15,11 +25,15 @@ for a = 1:k
     end
 end
 
-if(any(diagonal == 0))
+%algorytm wymaga aby na diagonali nie wystepowal zerowy element
+if(any(diagonal == 0)
     error("Diagonal element could not equal 0!");
 end
 
-%here we know that we have at least one nonzero element in each row    
+%sortowanie kolumn wedlug pierwszego wiersza
+A = sortrows(A')';
+
+%definiujemy podzial aby ulatwic prace petli sumujacych w metodzie SOR
 rowSplit = zeros(1,n);
 rowBeginnings = zeros(1,n);
 
@@ -32,10 +46,11 @@ for a = 2:n
     rowBeginnings(a) = rowBeginnings(a-1)+rowSplit(a-1);
 end
 
+%Algorytm SOR
 x = xFirst;
 xnext = xFirst;
 
-flag = 0;
+flag = 0; %0 = praca petli, 1 = metoda zbiezna, 2 = metoda rozbiezna
 iterations = 0;
 
 while flag == 0
@@ -57,8 +72,8 @@ while flag == 0
         xnext(i) = (1-w)*x(i) + w/diagonal(i)*(b(i)- sum1 - sum2);
     end
     
-    %checks 
-    if norm(x - xnext) < tolerance
+    %sprawdzenie warunkow stopu 
+    if norm(x - xnext) < epsilon
         flag = 1;
     end
     
@@ -71,7 +86,7 @@ while flag == 0
 end
 
 if (flag == 2)
-    error("The method is divergent");
+    error("Metoda jest rozbiezna");
 end
 
 end
