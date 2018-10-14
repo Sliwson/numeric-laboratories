@@ -4,19 +4,36 @@ function [x, k] = sorSparse(A, b, w, xFirst, epsilon, maxIterations)
 %   A - macierz wejsciowa w postaci rozrzedzonej (kazda kolumna A zawiera
 %       indeks wiersza, kolumny oraz wartosc kazdego niezerowego elementu)
 %   b - wektor wyrazow wolnych
-%   w - parametr relaksacji metody SOR
-%   xFirst - przyblizenie poczatkowe
+%   w - parametr relaksacji metody SOR (domyslnie 1)
+%   xFirst - przyblizenie poczatkowe (domyslnie wektor zerowy)
 %   epsilon - liczba rzeczywista okreslajaca warunek stopu (jezeli norma 
 %       z dwoch kolejnych przyblizen jest mniejsza od epsilon, zwracamy
-%       wynik)
+%       wynik) (domyslnie 1e-5)
 %   maxIterations - maksymalna liczba iteracji, jaka moze przeprowadzic
-%       algorytm
+%       algorytm (domyslnie 1e5)
 %   Parametry wyjsciowe:
 %   x - rozwiazanie ukladu rownan liniowych Ax = b
 %   k - liczba iteracji
 
 %n - rozmiar wektora wyrazow wolnych
 [n, ~] = size(b);
+
+%definicja wartosci domyslnych
+if nargin < 6
+    maxIterations = 1e5;
+end
+
+if nargin < 5
+    epsilon = 1e-5;
+end
+
+if nargin < 4
+    xFirst = ones(n,1);
+end
+
+if nargin < 3
+    w = 1;
+end
 
 %sprawdzenie elementow lezacych na diagonali
 diagonal = zeros(1,n);
@@ -30,7 +47,7 @@ for a = 1:k
 end
 
 %algorytm wymaga aby na diagonali nie wystepowal zerowy element
-if(any(diagonal == 0)
+if(any(diagonal == 0))
     error("Diagonal element could not equal 0!");
 end
 
