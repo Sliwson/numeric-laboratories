@@ -1,5 +1,6 @@
-function x = sorSparse(A, b, w, xFirst, epsilon, maxIterations)
+function [x, k] = sorSparse(A, b, w, xFirst, epsilon, maxIterations)
 %SORSPARSE Funkcja rozwiazuje uklad rownan liniowych Ax = b metoda SOR
+%   Parametry wejsciowe:
 %   A - macierz wejsciowa w postaci rozrzedzonej (kazda kolumna A zawiera
 %       indeks wiersza, kolumny oraz wartosc kazdego niezerowego elementu)
 %   b - wektor wyrazow wolnych
@@ -10,6 +11,9 @@ function x = sorSparse(A, b, w, xFirst, epsilon, maxIterations)
 %       wynik)
 %   maxIterations - maksymalna liczba iteracji, jaka moze przeprowadzic
 %       algorytm
+%   Parametry wyjsciowe:
+%   x - rozwiazanie ukladu rownan liniowych Ax = b
+%   k - liczba iteracji
 
 %n - rozmiar wektora wyrazow wolnych
 [n, ~] = size(b);
@@ -88,6 +92,8 @@ end
 if (flag == 2)
     error("Metoda jest rozbiezna");
 end
+
+k = iterations;
 
 end
 
