@@ -107,7 +107,7 @@ while flag == 0
 end
 
 if (flag == 2)
-    error("Metoda jest rozbiezna");
+    disp("Metoda jest rozbiezna");
 end
 
 k = iterations;
