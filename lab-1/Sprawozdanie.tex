@@ -5,6 +5,9 @@
 \usepackage{amssymb}
 \usepackage{mathtools}
 \usepackage{algpseudocode}
+\usepackage[inline]{enumitem}
+\usepackage{listings}
+\usepackage{matlab-prettifier}
 
 \DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
 
@@ -110,11 +113,44 @@ $x_i^{k+1}=(1-\omega)x_i^{(k)}+\omega(b-
 }
 \Until{<uzyskamy zbieżność>}
 \end{algorithmic}
-
+\paragraph{}
+Na potrzeby implementacji zadania posłużymy się zapisem niemacierzowym.
 
 \section{Warunki i założenia}
+\begin{enumerate}
+\item Macierz wejściowa jest w formacie, który pozwala przyspieszyć obliczenia oraz zmniejszyć złożonoć pamięciową dla macierzy rozrzedzonych
+ Każda kolumna tej macierzy zawiera indeks wiersza, indeks kolumny oraz wartość niezerowego pola macierzy $A$.
+\item Diagonala macierzy wejściowej nie może zawierać zerowego elementu (mielibyśmy wtedy dzielenie przez zero). 
+\item Aby metoda mogła być zbieżna: $\omega \in (0,2)$ (wniosek z \textit{lematu Kahana})
+\item Algorytm może zakończyc się w dwóch przypadkach:
+\begin {enumerate}
+\item Zostanie spełniony warunek $\norm{x^{(k)}-x}<\epsilon$, gdzie $\epsilon$ to zadana\\ dokładność).
+\item Przekroczymy $k$ iteracji.
+\end {enumerate}
+\end{enumerate}
 
 \section{Implementacja metody}
+\subsection{Funkcja \textit{sorSparse}}
+\paragraph{}
+Będzie to funkcja, która rozwiązuje zadany problem.
+\begin{lstlisting}[style=Matlab-editor]
+function [x, k] = sorSparse(A, b, w, xFirst, epsilon, maxIterations)
+\end{lstlisting}
+\vspace{4pt}
+Parametry wejściowe:
+\begin{itemize}
+\item $A$ - macierz wejściowa w postaci rozrzedzonej (jak w punkcie \textit{Warunki i założenia}),
+\item $b$ - wektor wyrazów wolnych,
+\item $\omega$ - parametr relaksacji metody SOR (domyślnie 1),
+\item $xFirst$ - przybliżenie początkowe (domyślnie wektor zerowy),
+\item $epsilon\in \mathbb{R}$ - określa warunek stopu,
+\item $maxIterations$ - maksymalna liczba iteracji, jaką może przeprowadzić algorytm (domyślnie $1e5$).
+\end{itemize}
+Parametry wyjściowe:
+\begin{itemize}
+\item$x$ - rozwiązanie układu równań liniowych Ax = b,
+\item$ k$ - liczba iteracji.
+\end{itemize}
 
 \section{Przykłady i wnioski}
 
