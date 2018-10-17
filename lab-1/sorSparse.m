@@ -20,14 +20,14 @@ function [x, k] = sorSparse(A, b, w, xFirst, epsilon, maxIterations)
 
 %definicja wartosci domyslnych
 if nargin < 6
-    maxIterations = 1e5;
+    maxIterations = 1e4;
 end
 
 if nargin < 5
     epsilon = 1e-5;
 end
 
-if nargin < 4
+if nargin < 4   
     xFirst = ones(n,1);
 end
 

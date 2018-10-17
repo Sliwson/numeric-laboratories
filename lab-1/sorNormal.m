@@ -19,7 +19,7 @@ function [x, k] = sorNormal(A, b, w, xFirst, epsilon, maxIterations)
 
 %definicja wartosci domyslnych
 if nargin < 6
-    maxIterations = 1e5;
+    maxIterations = 1e4;
 end
 
 if nargin < 5
