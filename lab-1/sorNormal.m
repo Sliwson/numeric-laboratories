@@ -64,11 +64,12 @@ while flag == 0
         flag = 1;
     end
     
+    iterations = iterations + 1;
+    
     if iterations > maxIterations
         flag = 2;
     end
     
-    iterations = iterations + 1;
     x = xnext;
 end
 
