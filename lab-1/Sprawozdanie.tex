@@ -8,6 +8,7 @@
 \usepackage[inline]{enumitem}
 \usepackage{listings}
 \usepackage{matlab-prettifier}
+\usepackage{babel-polish}
 
 \DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
 
@@ -23,7 +24,7 @@
 
 \section{Treść zadania}
 \paragraph{}
- Metoda iteracji prostej SOR dla układu \(Ax = b\) z macierzą rozrzedzoną.
+ Metoda iteracji prostej $SOR$ dla układu \(Ax = b\) z macierzą rozrzedzoną.
 \section{Opis metody}
 
 \subsection {Wprowadzenie - metody iteracyjne}
@@ -37,7 +38,7 @@ a_{21}x_1+a_{22}x_2+\dots+a_{2n}x_n=b_2 \\
 \vdots\\
 a_{n1}x_1+a_{n2}x_2+\dots+a_{nn}x_n=b_n \\ 
 \end{array}
-\right. 
+\right.
 \]
 Będziemy je zapisywać w postaci \(Ax = b\) zakładając: \\
 \[A=\begin{bmatrix}
@@ -65,8 +66,8 @@ taki, że o ile metoda jest zbieżna \(
 \norm{x^{(k)}-x}\xrightarrow{k\rightarrow\infty}x
 \).
 \paragraph{}
-Wiele metod iteracyjnych (w tym metoda SOR) ma postać \\ \(x^{(k+1)}=Bx^{(k)}+C\), gdzie \(B\in \mathbb{R}^{n\times n}\), a \(C\in\mathbb{R}^{n}\). Postać $B$ i $C$ definuje konkretną metodę.
-\subsection {Metoda SOR (Successive Over-Relaxation)}
+Wiele metod iteracyjnych (w tym metoda %SOR%) ma postać \\ \(x^{(k+1)}=Bx^{(k)}+C\), gdzie \(B\in \mathbb{R}^{n\times n}\), a \(C\in\mathbb{R}^{n}\). Postać $B$ i $C$ definuje konkretną metodę.
+\subsection {Metoda %SOR% (Successive Over-Relaxation)}
 \paragraph{}
 Zdefiniujmy macierze:
 \[
@@ -122,7 +123,7 @@ Na potrzeby implementacji zadania posłużymy się zapisem niemacierzowym.
  Każda kolumna tej macierzy zawiera indeks wiersza, indeks kolumny oraz wartość niezerowego pola macierzy $A$.
 \item Diagonala macierzy wejściowej nie może zawierać zerowego elementu (mielibyśmy wtedy dzielenie przez zero). 
 \item Aby metoda mogła być zbieżna: $\omega \in (0,2)$ (wniosek z \textit{lematu Kahana})
-\item Algorytm może zakończyc się w dwóch przypadkach:
+\item Algorytm może zakończyć się w dwóch przypadkach:
 \begin {enumerate}
 \item Zostanie spełniony warunek $\norm{x^{(k)}-x}<\epsilon$, gdzie $\epsilon$ to zadana\\ dokładność).
 \item Przekroczymy $k$ iteracji.
@@ -130,7 +131,7 @@ Na potrzeby implementacji zadania posłużymy się zapisem niemacierzowym.
 \end{enumerate}
 
 \section{Implementacja metody}
-\subsection{Funkcja \textit{sorSparse}}
+\subsection{Funkcja $sorSparse$}
 \paragraph{}
 Będzie to funkcja, która rozwiązuje zadany problem.
 \begin{lstlisting}[style=Matlab-editor]
@@ -141,24 +142,26 @@ Parametry wejściowe:
 \begin{itemize}
 \item $A$ - macierz wejściowa w postaci rozrzedzonej (jak w punkcie \textit{Warunki i założenia}),
 \item $b$ - wektor wyrazów wolnych,
-\item $\omega$ - parametr relaksacji metody SOR (domyślnie 1),
+\item $\omega$ - parametr relaksacji metody $SOR$ (domyślnie 1),
 \item $xFirst$ - przybliżenie początkowe (domyślnie wektor zerowy),
 \item $epsilon\in \mathbb{R}$ - określa warunek stopu,
 \item $maxIterations$ - maksymalna liczba iteracji, jaką może przeprowadzić algorytm (domyślnie $1e5$).
 \end{itemize}
 Parametry wyjściowe:
 \begin{itemize}
-\item$x$ - rozwiązanie układu równań liniowych Ax = b,
+\item$x$ - rozwiązanie układu równań liniowych $Ax = b$,
 \item$ k$ - liczba iteracji.
 \end{itemize}
 \paragraph{}
-Na początku definiujemy parametry domyślne dla funkcji. Następnie sprawdzamy czy na głównej diagonali nie występuje zero, co uniemożliwiłoby poprawne działanie algorytmu (wystąpiłoby dzielenie przez zero w pętli obliczającej kolejne przyblizenia). W celu ułatwienia dalszej pracy sortujemy tablicę wejściową względem pierwszego wiersza. Definiujemy wektory pomocnicze, okrelślające ile niezerowych wyrazów znajduje się w każdym wierszu macaierzy $A$ (nierozrzedzonej) oraz od jakiego indeksu w macierzy w postaci rozrzedzonej rozpoczynają się ciągi wyrazów z kolejnych wierszy. Następnie wykonywana jest pętla główna metody SOR, gdzie obliczamy kolejne przybliżenia $x$ do czasu, gdy norma z różnicy kolejnych przybliżeń będzie mniejsza od $epsilon$ lub przekroczymy maksymalną dopuszczalną liczbę iteracji.
+Na początku definiujemy parametry domyślne dla funkcji. Następnie sprawdzamy czy na głównej diagonali nie występuje zero, co uniemożliwiłoby poprawne działanie algorytmu (wystąpiłoby dzielenie przez zero w pętli obliczającej kolejne przybliżenia). W celu ułatwienia dalszej pracy sortujemy tablicę wejściową względem pierwszego wiersza. Definiujemy wektory pomocnicze, określające ile niezerowych wyrazów znajduje się w każdym wierszu macierzy $A$ (nierozrzedzonej) oraz od jakiego indeksu w macierzy w postaci rozrzedzonej rozpoczynają się ciągi wyrazów z kolejnych wierszy. Następnie wykonywana jest pętla główna metody $SOR$, gdzie obliczamy kolejne przybliżenia $x$ do czasu, gdy norma z różnicy kolejnych przybliżeń będzie mniejsza od $epsilon$ lub przekroczymy maksymalną dopuszczalną liczbę iteracji.
+\subsection{Pozostałe funkcje}
 \paragraph{}
-W celu przeprowadzena testów definiujemy kilka pommocniczych funkcji:
+W celu przeprowadzenia testów definiujemy kilka pomocniczych funkcji:
 \begin{enumerate}
-\item $sorNormal$ - implementacja metody SOR dla macierzy nierozrzedzonej, wprowadzanej w postaci macierzy $n\times n$.
-\item $matrixToSparse$ - konwerter macierzy z postaci $nxn$ na postać opisaną w punkcie \textit{Warunki i założenia}.
+\item $sorNormal$ - implementacja metody $SOR$ dla macierzy nierozrzedzonej, wprowadzanej w postaci macierzy $n\times n$.
+\item $matrixToSparse$ - konwerter macierzy z postaci $n\times n$ na postać opisaną w punkcie \textit{Warunki i założenia}.
 \item $generateSquareMatrix$ - elastyczny generator macierzy kwadratowej. Użyjemy go do utworzenia testów od dużym rozmiarze.
+\item $displayComparison$ - wyświetla porównanie podanych metod iteracji oraz wbudowanej funkcji Matlaba. Wyświetla czas działania każdej funkcji, porównuje normy z wyników oraz w przypadku metod iteracyjnych wyświetla liczbę wykonanych iteracji.
 \end{enumerate}
 \section{Przykłady i wnioski}
 
