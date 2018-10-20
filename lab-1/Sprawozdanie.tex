@@ -151,7 +151,15 @@ Parametry wyjściowe:
 \item$x$ - rozwiązanie układu równań liniowych Ax = b,
 \item$ k$ - liczba iteracji.
 \end{itemize}
-\paragraph{} Na początku definiujemy parametry domyślne dla funkcji. Następnie sprawdzamy czy na głównej diagonali nie występuje zero, co uniemożliwiłoby poprawne działanie algorytmu (wystąpiłoby dzielenie przez zero w pętli obliczającej kolejne przyblizenia). W celu ułatwienia dalszej pracy sortujemy tablicę wejściową względem pierwszego wiersza. Definiujemy wektory pomocnicze, okrelślające ile niezerowych wyrazów znajduje się w każdym wierszu macaierzy $A$ (nierozrzedzonej) oraz od jakiego indeksu w macierzy w postaci rozrzedzonej rozpoczynają się ciągi wyrazów z kolejnych wierszy. Następnie wykonywana jest pętla główna metody SOR, gdzie obliczamy kolejne przybliżenia $x$ do czasu, gdy norma z różnicy kolejnych przybliżeń będzie mniejsza od $epsilon$ lub przekroczymy maksymalną dopuszczalną liczbę iteracji.
+\paragraph{}
+Na początku definiujemy parametry domyślne dla funkcji. Następnie sprawdzamy czy na głównej diagonali nie występuje zero, co uniemożliwiłoby poprawne działanie algorytmu (wystąpiłoby dzielenie przez zero w pętli obliczającej kolejne przyblizenia). W celu ułatwienia dalszej pracy sortujemy tablicę wejściową względem pierwszego wiersza. Definiujemy wektory pomocnicze, okrelślające ile niezerowych wyrazów znajduje się w każdym wierszu macaierzy $A$ (nierozrzedzonej) oraz od jakiego indeksu w macierzy w postaci rozrzedzonej rozpoczynają się ciągi wyrazów z kolejnych wierszy. Następnie wykonywana jest pętla główna metody SOR, gdzie obliczamy kolejne przybliżenia $x$ do czasu, gdy norma z różnicy kolejnych przybliżeń będzie mniejsza od $epsilon$ lub przekroczymy maksymalną dopuszczalną liczbę iteracji.
+\paragraph{}
+W celu przeprowadzena testów definiujemy kilka pommocniczych funkcji:
+\begin{enumerate}
+\item $sorNormal$ - implementacja metody SOR dla macierzy nierozrzedzonej, wprowadzanej w postaci macierzy $n\times n$.
+\item $matrixToSparse$ - konwerter macierzy z postaci $nxn$ na postać opisaną w punkcie \textit{Warunki i założenia}.
+\item $generateSquareMatrix$ - elastyczny generator macierzy kwadratowej. Użyjemy go do utworzenia testów od dużym rozmiarze.
+\end{enumerate}
 \section{Przykłady i wnioski}
 
 \end{document}
