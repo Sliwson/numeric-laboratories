@@ -118,7 +118,7 @@ Na potrzeby implementacji zadania posłużymy się zapisem niemacierzowym.
 
 \section{Warunki i założenia}
 \begin{enumerate}
-\item Macierz wejściowa jest w formacie, który pozwala przyspieszyć obliczenia oraz zmniejszyć złożonoć pamięciową dla macierzy rozrzedzonych
+\item Macierz wejściowa jest w formacie, który pozwala przyspieszyć obliczenia oraz zmniejszyć złożoność pamięciową dla macierzy rozrzedzonych
  Każda kolumna tej macierzy zawiera indeks wiersza, indeks kolumny oraz wartość niezerowego pola macierzy $A$.
 \item Diagonala macierzy wejściowej nie może zawierać zerowego elementu (mielibyśmy wtedy dzielenie przez zero). 
 \item Aby metoda mogła być zbieżna: $\omega \in (0,2)$ (wniosek z \textit{lematu Kahana})
@@ -151,7 +151,7 @@ Parametry wyjściowe:
 \item$x$ - rozwiązanie układu równań liniowych Ax = b,
 \item$ k$ - liczba iteracji.
 \end{itemize}
-
+\paragraph{} Na początku definiujemy parametry domyślne dla funkcji. Następnie sprawdzamy czy na głównej diagonali nie występuje zero, co uniemożliwiłoby poprawne działanie algorytmu (wystąpiłoby dzielenie przez zero w pętli obliczającej kolejne przyblizenia). W celu ułatwienia dalszej pracy sortujemy tablicę wejściową względem pierwszego wiersza. Definiujemy wektory pomocnicze, okrelślające ile niezerowych wyrazów znajduje się w każdym wierszu macaierzy $A$ (nierozrzedzonej) oraz od jakiego indeksu w macierzy w postaci rozrzedzonej rozpoczynają się ciągi wyrazów z kolejnych wierszy. Następnie wykonywana jest pętla główna metody SOR, gdzie obliczamy kolejne przybliżenia $x$ do czasu, gdy norma z różnicy kolejnych przybliżeń będzie mniejsza od $epsilon$ lub przekroczymy maksymalną dopuszczalną liczbę iteracji.
 \section{Przykłady i wnioski}
 
 \end{document}
