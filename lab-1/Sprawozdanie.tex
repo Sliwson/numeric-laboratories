@@ -165,9 +165,9 @@ W celu przeprowadzenia testów definiujemy kilka pomocniczych funkcji:
 \section{Przykłady i wnioski}
 \subsection{Przykłady ze względu na wielkość macierzy}
 \paragraph{}
-Na początku zobaczymy rezultat działania algorytmu dla macierzy o różnych rozmiarach dla parametru $\omega$ równego $1.25$. Resztę parametrów pozostawimy domyślną, gdyż sprawdzenie wpływu każdego z nich wymagałoby utworzenia zbyt dużej ilości testów.
+Na początku zobaczymy rezultat działania algorytmu dla macierzy o różnych rozmiarach dla parametru $\omega$ równego $1.25$. Resztę parametrów pozostawimy domyślną, gdyż sprawdzenie wpływu każdego z nich wymagałoby utworzenia zbyt dużej ilości testów. W ramkach przedstawiony zostanie nieznacznie sformatowany wynik działania funkcji $displayComparison$.
 \begin{enumerate}
-\item Macierz $5 \times 5 $ - jedyna jaką wpiszemy ręcznie podczas naszych testów:
+\item Macierz $5 \times 5 $ - jedyna jaką wprowadzimy ręcznie podczas naszych testów:
 $$A = \begin{bmatrix}
 4 & 0 & 0 & 0 & 3\\
 3 & 5 & 0 & 0 & 2\\
@@ -175,7 +175,7 @@ $$A = \begin{bmatrix}
 2 & 0 & 0 & 6 & 0\\
 1 & 0 & 0 & 0 & 1
 \end{bmatrix}, 
-B = \begin{bmatrix}
+b = \begin{bmatrix}
 1\\
 2\\
 3\\
@@ -196,6 +196,50 @@ Otrzymujemy:\\\\
 		Norma z różnicy wyników metod $SOR$: $0$\\
 		Norma z różnicy metody $SOR$ i wbudowanej funkcji Matlaba: $9.9478e-06$
     }
-}
+}\\\\
+Jak widać nawet d;a macierzy rozrzedzonej małych rozmiarów różnica wydajności pomiędzy metodami $SOR$ jest zauważalna. Obydwie metody uzyskały lepszy wynik również od funkcji Matlaba, lecz warto zauważyć, że uzyskany przez nią wynik jest wynikiem dokładnym.
+\item Macierz $25 \times 25$ - wygenerowana automatycznie, $95\%$ elementów to zera, reszta elementów to liczby rzeczywiste. Zaznaczmy, że na diagonali umieszczone są elementy znaczni większe. Wektor wyrazów wolnych również wypełniamy losowo, liczbami z przedziału $(-0.5,0.5)$.\\
+\noindent\fbox{
+    \parbox{\textwidth}{
+        Metoda $SOR$ dla macierzy rozrzedzonej:\\
+		Liczba iteracji: $11$\\
+		Czas: $0.0043368$\\	
+		Zwykła metoda $SOR$:\\
+		Liczba iteracji: $11$\\
+		Czas: $0.0050096$\\
+		Wbudowana funkcja Matlaba:
+		Czas: $0.0081887$\\
+		Norma z różnicy wyników metod $SOR$: $0$\\
+		Norma z różnicy metody $SOR$ i wbudowanej funkcji Matlaba: $1.3348e-06$
+    }
+}\\\\
+Jak widać nawet d;a macierzy rozrzedzonej małych rozmiarów różnica wydajności pomiędzy metodami $SOR$ jest zauważalna. Obydwie metody uzyskały lepszy wynik również od funkcji Matlaba, lecz warto zauważyć, że uzyskany przez nią wynik jest wynikiem z dokładnością maszynową.
+\item Macierz $5000 \times 5000$ - wygenerowana automatycznie, $99\%$ elementów to zera. Pozostałe parametry analogicznie jak w punkcie wyżej.\\
+\noindent\fbox{
+    \parbox{\textwidth}{
+        Metoda $SOR$ dla macierzy rozrzedzonej:\\
+		Liczba iteracji: $13$\\
+		Czas: $0.22015$\\	
+		Zwykła metoda $SOR$:\\
+		Liczba iteracji: $13$\\
+		Czas: $9.6931$\\
+		Wbudowana funkcja Matlaba:
+		Czas: $0.91442$\\
+		Norma z różnicy wyników metod $SOR$: $0$\\
+		Norma z różnicy metody $SOR$ i wbudowanej funkcji Matlaba: $1.0588e-06$
+    }
+}\\\\
+W tym przykładzie widać wyraźnie, że dla macierzy rozrzedzonych o dużym rozmiarze funkcja przystosowana do pracy z macierzami tego typu jest zdecydowanie bardziej optymalna. Uzyskany czas jest około 44 razy lepszy niż ten uzyskany przez klasyczną metodę $SOR$. Warto zauważyć że wbudowany algorytm Matlaba znakomicie sobie radzi również z dużymi macierzami - podając wynik z dokładnością maszynową jest zaledwie 4 razy wolniejszy od naszej funkcji.
+\item Macierz $100\times 100$ - wygenerowana tak aby suma wartości bezwzględnych znajdujących się na diagonali była mała.\\\\
+\noindent\fbox{
+    \parbox{\textwidth}{
+        Metoda $SOR$ dla macierzy rozrzedzonej:\\
+		Metoda jest rozbieżna\\
+		Czas: $1.41$\\	
+		\vdots
+    }
+}\\\\
+Co nie jest zaskoczeniem - metoda SOR okazała się rozbieżna w tym przypadku.
+\subparagraph{Przykłady ze względu na parametr relaksacji}
 \end{enumerate}
 \end{document}
