@@ -8,7 +8,6 @@
 \usepackage[inline]{enumitem}
 \usepackage{listings}
 \usepackage{matlab-prettifier}
-\usepackage{babel-polish}
 
 \DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
 
@@ -66,8 +65,8 @@ taki, że o ile metoda jest zbieżna \(
 \norm{x^{(k)}-x}\xrightarrow{k\rightarrow\infty}x
 \).
 \paragraph{}
-Wiele metod iteracyjnych (w tym metoda %SOR%) ma postać \\ \(x^{(k+1)}=Bx^{(k)}+C\), gdzie \(B\in \mathbb{R}^{n\times n}\), a \(C\in\mathbb{R}^{n}\). Postać $B$ i $C$ definuje konkretną metodę.
-\subsection {Metoda %SOR% (Successive Over-Relaxation)}
+Wiele metod iteracyjnych (w tym metoda $SOR$) ma postać \\ \(x^{(k+1)}=Bx^{(k)}+C\), gdzie \(B\in \mathbb{R}^{n\times n}\), a \(C\in\mathbb{R}^{n}\). Postać $B$ i $C$ definuje konkretną metodę.
+\subsection {Metoda $SOR$ (Successive Over-Relaxation)}
 \paragraph{}
 Zdefiniujmy macierze:
 \[
@@ -164,5 +163,39 @@ W celu przeprowadzenia testów definiujemy kilka pomocniczych funkcji:
 \item $displayComparison$ - wyświetla porównanie podanych metod iteracji oraz wbudowanej funkcji Matlaba. Wyświetla czas działania każdej funkcji, porównuje normy z wyników oraz w przypadku metod iteracyjnych wyświetla liczbę wykonanych iteracji.
 \end{enumerate}
 \section{Przykłady i wnioski}
-
+\subsection{Przykłady ze względu na wielkość macierzy}
+\paragraph{}
+Na początku zobaczymy rezultat działania algorytmu dla macierzy o różnych rozmiarach dla parametru $\omega$ równego $1.25$. Resztę parametrów pozostawimy domyślną, gdyż sprawdzenie wpływu każdego z nich wymagałoby utworzenia zbyt dużej ilości testów.
+\begin{enumerate}
+\item Macierz $5 \times 5 $ - jedyna jaką wpiszemy ręcznie podczas naszych testów:
+$$A = \begin{bmatrix}
+4 & 0 & 0 & 0 & 3\\
+3 & 5 & 0 & 0 & 2\\
+0 & 0 & 3 & 0 & 0\\
+2 & 0 & 0 & 6 & 0\\
+1 & 0 & 0 & 0 & 1
+\end{bmatrix}, 
+B = \begin{bmatrix}
+1\\
+2\\
+3\\
+4\\
+5
+\end{bmatrix}$$
+Otrzymujemy:\\\\
+\noindent\fbox{
+    \parbox{\textwidth}{
+        Metoda $SOR$ dla macierzy rozrzedzonej:\\
+		Liczba iteracji: $26$\\
+		Czas: $0.21186$\\	
+		Zwykła metoda $SOR$:\\
+		Liczba iteracji: $26$\\
+		Czas: $0.038119$\\
+		Wbudowana funkcja Matlaba:
+		Czas: $0.046239$\\
+		Norma z różnicy wyników metod $SOR$: $0$\\
+		Norma z różnicy metody $SOR$ i wbudowanej funkcji Matlaba: $9.9478e-06$
+    }
+}
+\end{enumerate}
 \end{document}
