@@ -239,7 +239,21 @@ W tym przykładzie widać wyraźnie, że dla macierzy rozrzedzonych o dużym roz
 		\vdots
     }
 }\\\\
-Co nie jest zaskoczeniem - metoda SOR okazała się rozbieżna w tym przypadku.
-\subparagraph{Przykłady ze względu na parametr relaksacji}
+Co nie jest zaskoczeniem - metoda $SOR$ okazała się rozbieżna w tym przypadku.
+\subsection{Przykłady ze względu na parametr relaksacji}
+Sprawdzimy jaka wartość parametru $\omega$ jest optymalna dla macierzy w różnych rozmiarach. Testować będziemy za pomocą pętli:
+\begin{lstlisting}[style=Matlab-editor]
+bestk = 1e5;
+bestw = 0;
+
+for w=0.02:0.02:1.98
+	[x,k]=sorSparse(A,b,w,zeros(100,1), 10e-8, 10e4);
+	if(k < bestk)
+		bestk = k;
+		bestw = w;
+	end
+end
+\end{lstlisting}
+
 \end{enumerate}
 \end{document}
