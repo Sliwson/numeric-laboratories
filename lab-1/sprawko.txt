@@ -1,0 +1,88 @@
+examples
+========================================================================================
+Porownanie dla macierzy 5x5
+Metoda SOR dla macierzy rozrzedzonej:
+Liczba iteracji: 26
+Czas: 0.21186
+Zwykla metoda SOR:
+Liczba iteracji: 26
+Czas: 0.038119
+Wbudowana funkcja matlaba: 
+Czas: 0.046239
+Porownanie wynikow (norma z roznicy wynikow metod SOR): 0
+Porownanie wynikow (norma z roznicy metody SOR i wbudowanej funkcji matlaba): 9.9478e-06
+Iloraz czasow metody SOR oraz metody SOR dla macierzy rozrzedzonych: 0.17993
+Iloraz czasow wbudowanej funkcji matlaba oraz metody SOR dla macierzy rozrzedzonych: 0.21825
+========================================================================================
+Porownanie dla macierzy 14x14
+Metoda SOR dla macierzy rozrzedzonej:
+Liczba iteracji: 11
+Czas: 0.0092
+Zwykla metoda SOR:
+Liczba iteracji: 11
+Czas: 0.0047795
+Wbudowana funkcja matlaba: 
+Czas: 0.000128
+Porownanie wynikow (norma z roznicy wynikow metod SOR): 0
+Porownanie wynikow (norma z roznicy metody SOR i wbudowanej funkcji matlaba): 1.3783e-06
+Iloraz czasow metody SOR oraz metody SOR dla macierzy rozrzedzonych: 0.51951
+Iloraz czasow wbudowanej funkcji matlaba oraz metody SOR dla macierzy rozrzedzonych: 0.013913
+========================================================================================
+Porownanie dla macierzy 25x25
+Metoda SOR dla macierzy rozrzedzonej:
+Liczba iteracji: 11
+Czas: 0.0067089
+Zwykla metoda SOR:
+Liczba iteracji: 11
+Czas: 0.0040533
+Wbudowana funkcja matlaba: 
+Czas: 0.006274
+Porownanie wynikow (norma z roznicy wynikow metod SOR): 0
+Porownanie wynikow (norma z roznicy metody SOR i wbudowanej funkcji matlaba): 1.3348e-06
+Iloraz czasow metody SOR oraz metody SOR dla macierzy rozrzedzonych: 0.60417
+Iloraz czasow wbudowanej funkcji matlaba oraz metody SOR dla macierzy rozrzedzonych: 0.93518
+========================================================================================
+Porownanie dla macierzy 1000x1000
+Metoda SOR dla macierzy rozrzedzonej:
+Liczba iteracji: 12
+Czas: 0.019969
+Zwykla metoda SOR:
+Liczba iteracji: 12
+Czas: 0.26238
+Wbudowana funkcja matlaba: 
+Czas: 0.030491
+Porownanie wynikow (norma z roznicy wynikow metod SOR): 0
+Porownanie wynikow (norma z roznicy metody SOR i wbudowanej funkcji matlaba): 1.8908e-06
+Iloraz czasow metody SOR oraz metody SOR dla macierzy rozrzedzonych: 13.1393
+Iloraz czasow wbudowanej funkcji matlaba oraz metody SOR dla macierzy rozrzedzonych: 1.5269
+========================================================================================
+Porownanie dla macierzy 5000x5000
+Metoda SOR dla macierzy rozrzedzonej:
+Liczba iteracji: 13
+Czas: 0.16912
+Zwykla metoda SOR:
+Liczba iteracji: 13
+Czas: 9.4885
+Wbudowana funkcja matlaba: 
+Czas: 1.3306
+Porownanie wynikow (norma z roznicy wynikow metod SOR): 0
+Porownanie wynikow (norma z roznicy metody SOR i wbudowanej funkcji matlaba): 1.0588e-06
+Iloraz czasow metody SOR oraz metody SOR dla macierzy rozrzedzonych: 56.1046
+Iloraz czasow wbudowanej funkcji matlaba oraz metody SOR dla macierzy rozrzedzonych: 7.8674
+========================================================================================
+Porownanie dla macierzy 100x100
+Metoda SOR dla macierzy rozrzedzonej:
+Metoda jest rozbiezna
+Liczba iteracji: 10001
+Czas: 1.1411
+Zwykla metoda SOR:
+Metoda jest rozbiezna
+Liczba iteracji: 10001
+Czas: 11.7235
+Wbudowana funkcja matlaba: 
+Czas: 0.0033887
+Porownanie wynikow (norma z roznicy wynikow metod SOR): NaN
+Porownanie wynikow (norma z roznicy metody SOR i wbudowanej funkcji matlaba): NaN
+Iloraz czasow metody SOR oraz metody SOR dla macierzy rozrzedzonych: 10.2739
+Iloraz czasow wbudowanej funkcji matlaba oraz metody SOR dla macierzy rozrzedzonych: 0.0029697
+diary off
