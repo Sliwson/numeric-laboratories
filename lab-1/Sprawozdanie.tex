@@ -13,12 +13,12 @@
 
 \title{Sprawozdanie \\Metody numeryczne 2 \\\textbf{Temat 1, Zadanie nr 6}}
 \date{10/15/2018}
-\author{Mateusz Śliwakowski}
+\author{Mateusz Śliwakowski, F4}
 
 \begin{document}
   \pagenumbering{gobble}
   \maketitle
-  \newpage
+	  \newpage
   \pagenumbering{arabic}
 
 \section{Treść zadania}
@@ -62,7 +62,7 @@ Będziemy je zapisywać w postaci \(Ax = b\) zakładając: \\
 W metodzie iteracyjnej tworzony jest ciąg kolejnych przybliżeń 
 \((x^{(1)}, x^{(2)},\dots)\)
 taki, że o ile metoda jest zbieżna \(
-\norm{x^{(k)}-x}\xrightarrow{k\rightarrow\infty}x
+\norm{x^{(k)}-x}\xrightarrow{k\rightarrow\infty}0
 \).
 \paragraph{}
 Wiele metod iteracyjnych (w tym metoda $SOR$) ma postać \\ \(x^{(k+1)}=Bx^{(k)}+C\), gdzie \(B\in \mathbb{R}^{n\times n}\), a \(C\in\mathbb{R}^{n}\). Postać $B$ i $C$ definuje konkretną metodę.
@@ -118,14 +118,13 @@ Na potrzeby implementacji zadania posłużymy się zapisem niemacierzowym.
 
 \section{Warunki i założenia}
 \begin{enumerate}
-\item Macierz wejściowa jest w formacie, który pozwala przyspieszyć obliczenia oraz zmniejszyć złożoność pamięciową dla macierzy rozrzedzonych
- Każda kolumna tej macierzy zawiera indeks wiersza, indeks kolumny oraz wartość niezerowego pola macierzy $A$.
+\item Macierz wejściowa jest w formacie, który pozwala przyspieszyć obliczenia oraz zmniejszyć złożoność pamięciową dla macierzy rozrzedzonych. Każda kolumna tej macierzy zawiera indeks wiersza, indeks kolumny oraz wartość niezerowego pola macierzy $A$.
 \item Diagonala macierzy wejściowej nie może zawierać zerowego elementu (mielibyśmy wtedy dzielenie przez zero). 
 \item Aby metoda mogła być zbieżna: $\omega \in (0,2)$ (wniosek z \textit{lematu Kahana})
 \item Algorytm może zakończyć się w dwóch przypadkach:
 \begin {enumerate}
 \item Zostanie spełniony warunek $\norm{x^{(k)}-x}<\epsilon$, gdzie $\epsilon$ to zadana\\ dokładność).
-\item Przekroczymy $k$ iteracji.
+\item Przekroczymy maksymalną liczbę iteracji.
 \end {enumerate}
 \end{enumerate}
 
@@ -142,9 +141,9 @@ Parametry wejściowe:
 \item $A$ - macierz wejściowa w postaci rozrzedzonej (jak w punkcie \textit{Warunki i założenia}),
 \item $b$ - wektor wyrazów wolnych,
 \item $\omega$ - parametr relaksacji metody $SOR$ (domyślnie 1),
-\item $xFirst$ - przybliżenie początkowe (domyślnie wektor zerowy),
-\item $epsilon\in \mathbb{R}$ - określa warunek stopu,
-\item $maxIterations$ - maksymalna liczba iteracji, jaką może przeprowadzić algorytm (domyślnie $1e5$).
+\item $xFirst$ - przybliżenie początkowe (domyślnie wektor złożony z samych jedynek),
+\item $epsilon\in \mathbb{R}$ - określa warunek stopu (domyślnie $1\mathrm{e}{-5}$),
+\item $maxIterations$ - maksymalna liczba iteracji, jaką może przeprowadzić algorytm (domyślnie $1\mathrm{e}{4}$).
 \end{itemize}
 Parametry wyjściowe:
 \begin{itemize}
@@ -280,7 +279,7 @@ Okazuję się, że najczęściej, najlepszym wyborem jest $\omega = 1$. Jest to 
 \begin{enumerate}
 \item Na początku warto odpowiedzieć na pytanie: czy warto programować własną metodę, kiedy algorytm Matlaba jest dobrze napisany i dokładnie przetestowany? Jak pokazują przykłady, jeśli nie zależy nam na wysokiej dokładności oraz nasza macierz jest rozrzedzona, własny algorytm potrafi być szybszy od algorytmu Matlaba.
 \item Warto zauważyć iż pracując na macierzach przechowywanych w postaci rozrzedzonej ($3\times l$, gdzie l to liczba niezerowych elementów) jesteśmy w stanie przeprowadzać obliczenia na dużo większych macierzach niż bylibyśmy w stanie dla macierzy przechowywanych w tablicach $n \times n$.
-\item Pośród testowanych przypadków trudno znaleźć dobre zastosowanie dla samodzielnie napisanej, klasycznej metody $SOR$ - jest ona wolniejsza od funkcji Matlaba niemal w każdej sytuacji.
+\item Pośród testowanych przypadków trudno znaleźć dobre zastosowanie dla samodzielnie napisanej, klasycznej metody $SOR$ - dla dużych macierzy jest ona wolniejsza od funkcji Matlaba nawet o rząd wielkości.
 \item Parametr $\omega$ znacząco wpływa na zbieżność. Z przeprowadzonych testów wynika, że najlepiej dla macierzy rozrzedzonych wybierać $\omega \approx 1$.
 \end{enumerate}
 \end{document}

@@ -10,7 +10,7 @@ function [x, k] = sorSparse(A, b, w, xFirst, epsilon, maxIterations)
 %       z dwoch kolejnych przyblizen jest mniejsza od epsilon, zwracamy
 %       wynik) (domyslnie 1e-5)
 %   maxIterations - maksymalna liczba iteracji, jaka moze przeprowadzic
-%       algorytm (domyslnie 1e5)
+%       algorytm (domyslnie 1e4)
 %   Parametry wyjsciowe:
 %   x - rozwiazanie ukladu rownan liniowych Ax = b
 %   k - liczba iteracji
