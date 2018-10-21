@@ -240,20 +240,47 @@ W tym przykładzie widać wyraźnie, że dla macierzy rozrzedzonych o dużym roz
     }
 }\\\\
 Co nie jest zaskoczeniem - metoda $SOR$ okazała się rozbieżna w tym przypadku.
+\end{enumerate}
 \subsection{Przykłady ze względu na parametr relaksacji}
 Sprawdzimy jaka wartość parametru $\omega$ jest optymalna dla macierzy w różnych rozmiarach. Testować będziemy za pomocą pętli:
 \begin{lstlisting}[style=Matlab-editor]
-bestk = 1e5;
-bestw = 0;
+sizes = [5,25,100,500];
+for i=1:4
+    A = generateSquareMatrix(sizes(i), 0.97, 1, 10, 0);
+    b = 0.5 - rand(sizes(i),1);
 
-for w=0.02:0.02:1.98
-	[x,k]=sorSparse(A,b,w,zeros(100,1), 10e-8, 10e4);
-	if(k < bestk)
-		bestk = k;
-		bestw = w;
-	end
+    A = matrixToSparse(A);
+
+    bestk = 1e5;
+    bestw = 0;
+
+    for w=0.02:0.02:1.98
+        [x,k] = sorSparse(A,b,w, zeros(sizes(i),1), 10e-8, 10e4);
+        if(k < bestk)
+            bestk = k;
+            bestw = w;
+        end
+    end
+
+    D = ['Dla rozmiaru: ', int2str(sizes(i)), 'x', int2str(sizes(i)) ' najlepsze w: ', int2str(bestw), ', liczba iteracji: ', int2str(bestk)];
+    disp(D);
 end
 \end{lstlisting}
-
+Otrzymaliśmy wyjście:\\
+\noindent\fbox{
+    \parbox{\textwidth}{
+        Dla rozmiaru: 5x5 najlepsze w: 1, liczba iteracji: 3\\
+        Dla rozmiaru: 25x25 najlepsze w: 1, liczba iteracji: 5\\
+        Dla rozmiaru: 100x100 najlepsze w: 0.98, liczba iteracji: 8\\
+        Dla rozmiaru: 500x500 najlepsze w; 1, liczba iteracji: 10
+    }
+}\\\\
+Okazuję się, że najczęściej, najlepszym wyborem jest $\omega = 1$. Jest to szczególna $\omega$ gdyż wtedy pętla metody $SOR$ przyjmuje taką samą postać, jak metoda Gaussa-Seidela. Aby nie zaciemniać rezultatu działania testu wyciąłem komunikaty o rozbieżności, jednak warto zwrócić uwagę iż dla $\omega$ bliskiej 0 lub 2 metoda potrzebuje dużej ilości iteracji, lub nawet jest rozbieżna.
+\subsection{Wnioski}
+\begin{enumerate}
+\item Na początku warto odpowiedzieć na pytanie: czy warto programować własną metodę, kiedy algorytm Matlaba jest dobrze napisany i dokładnie przetestowany? Jak pokazują przykłady, jeśli nie zależy nam na wysokiej dokładności oraz nasza macierz jest rozrzedzona, własny algorytm potrafi być szybszy od algorytmu Matlaba.
+\item Warto zauważyć iż pracując na macierzach przechowywanych w postaci rozrzedzonej ($3\times l$, gdzie l to liczba niezerowych elementów) jesteśmy w stanie przeprowadzać obliczenia na dużo większych macierzach niż bylibyśmy w stanie dla macierzy przechowywanych w tablicach $n \times n$.
+\item Pośród testowanych przypadków trudno znaleźć dobre zastosowanie dla samodzielnie napisanej, klasycznej metody $SOR$ - jest ona wolniejsza od funkcji Matlaba niemal w każdej sytuacji.
+\item Parametr $\omega$ znacząco wpływa na zbieżność. Z przeprowadzonych testów wynika, że najlepiej dla macierzy rozrzedzonych wybierać $\omega \approx 1$.
 \end{enumerate}
 \end{document}
