@@ -1,0 +1,3 @@
+Interpolacja funkcjami kwadratowymi na obszarze D |x| + |y| <= 1 podzielonym na 4n^2 trójkatów przystajacych.
+Tablicowanie funkcji, przyblizenia i bledu w srodkach ciezkosci trójkatów. 
+Obliczenie bledu maksymalnego w tych punktach.
