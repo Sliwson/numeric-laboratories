@@ -8,14 +8,6 @@ A = zeros(4*n*n, 12); %kazdy wiersz zawiera x1,y1,x2,y2,x3,y3,oraz srodki bokow
 B = zeros(4*n*n, 5); %wektor wynikowy - wspolrzedne srodka ciezkosci, wartosc funkcji, przyblizenia oraz blad.
 
 [k,~] = size(X);
-% for i=1:k
-%     for j=1:k
-%         if(abs(X(i,j)) + abs(Y(i,j)) > 1)
-%             X(i,j) = NaN;
-%             Y(i,j) = NaN;
-%         end            
-%     end
-% end
 
 counter = 1;
 for i=1:floor(k/2)
@@ -23,13 +15,13 @@ for i=1:floor(k/2)
     length = i*2-1;
     offset = (k-length)/2;
     for j = 1+offset:k-offset
-        if(even)
+        if(even == false)
             %left
-            T = [i,j-1,i,j,i+1,j];
+            T = [i,j,i+1,j-1,i+1,j];
             A(counter,:) = initializeAfromT(T,X,Y);
             counter = counter + 1;
             %right
-            T = [i,j,i,j,i+1,j+1];
+            T = [i,j,i+1,j,i+1,j+1];
             A(counter,:) = initializeAfromT(T,X,Y);
         else
             %left
@@ -51,17 +43,17 @@ for i=ceil(k/2)+1:k
     length = (k-i+1)*2-1;
     offset = (k-length)/2;
     for j = 1+offset:k-offset
-        if(even)
+        if(even == false)
             %left
-            T = [i,j-1,i,j,i-1,j];
+            T = [i,j,i-1,j-1,i-1,j];
             A(counter,:) = initializeAfromT(T,X,Y);
             counter = counter + 1;
             %right
-            T = [i,j,i,j,i-1,j+1];
+            T = [i,j,i-1,j,i-1,j+1];
             A(counter,:) = initializeAfromT(T,X,Y);
         else
             %left
-            T = [i,j,i-1,j-1,i-1,j];
+            T = [i,j-1,i,j,i-1,j];
             A(counter,:) = initializeAfromT(T,X,Y);
             counter = counter + 1;
             %right
@@ -100,7 +92,7 @@ for i=1:4*n*n
     B(i,4) = fApprox;
     B(i,5) = abs(fApprox - B(i,3));
 end
-
+disp('    x -- y -- f(x,y) -- fApprox(x,y) -- error');
 disp(B);
 end
 
