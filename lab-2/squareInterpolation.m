@@ -16,59 +16,40 @@ B = zeros(4*n*n, 5); %wektor wynikowy - wspolrzedne srodka ciezkosci, wartosc fu
 %petla wyznaczajaca podzial obszaru na trojkaty
 counter = 1;
 for i=1:floor(k/2)
-    even = false;
     length = i*2-1;
     offset = (k-length)/2;
-    for j = 1+offset:k-offset
-        if(even == false)
-            %left
-            T = [i,j,i+1,j-1,i+1,j];
-            A(counter,:) = initializeAfromT(T,X,Y);
-            counter = counter + 1;
-            %right
-            T = [i,j,i+1,j,i+1,j+1];
-            A(counter,:) = initializeAfromT(T,X,Y);
-        else
-            %left
-            T = [i,j,i+1,j-1,i+1,j];
-            A(counter,:) = initializeAfromT(T,X,Y);
-            counter = counter + 1;
-            %right
-            T = [i,j,i+1,j,i+1,j+1];
-            A(counter,:) = initializeAfromT(T,X,Y);
-        end
-            
+    
+    for j = 1+offset:ceil(k/2)
+        %left
+        T = [i,j,i+1,j-1,i+1,j];
+        A(counter,:) = initializeAfromT(T,X,Y);
         counter = counter + 1;
-        even = ~even;  
+        
+        if(j ~= 1+offset)
+            %left
+            T = [i,j,i,j-1,i+1,j];
+            A(counter,:) = initializeAfromT(T,X,Y);
+            counter = counter + 1;
+        end
     end
 end
 
-for i=ceil(k/2)+1:k
-    even = false;
-    length = (k-i+1)*2-1;
-    offset = (k-length)/2;
-    for j = 1+offset:k-offset
-        if(even == false)
-            %left
-            T = [i,j,i-1,j-1,i-1,j];
-            A(counter,:) = initializeAfromT(T,X,Y);
-            counter = counter + 1;
-            %right
-            T = [i,j,i-1,j,i-1,j+1];
-            A(counter,:) = initializeAfromT(T,X,Y);
-        else
-            %left
-            T = [i,j-1,i,j,i-1,j];
-            A(counter,:) = initializeAfromT(T,X,Y);
-            counter = counter + 1;
-            %right
-            T = [i,j,i-1,j,i-1,j+1];
-            A(counter,:) = initializeAfromT(T,X,Y);
-        end
-            
-        counter = counter + 1;
-        even = ~even;  
-    end
+%odbicie w poziomie
+for i = 1:n*n
+    newIndex = i+n*n;
+    A(newIndex,:) = A(i,:);
+    
+    j = 1:2:11;
+    A(newIndex,j) = A(newIndex,j).*-1;
+end
+
+%odbicie w pionie
+for i = 1:2*n*n
+    newIndex = i+2*n*n;
+    A(newIndex,:) = A(i,:);
+    
+    j = 2:2:12;
+    A(newIndex,j) = A(newIndex,j).*-1;
 end
 
 for i=1:4*n*n
