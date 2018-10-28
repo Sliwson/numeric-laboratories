@@ -1,8 +1,14 @@
-function squareInterpolation(fun, n)
+function [B, err] =  squareInterpolation(fun, n)
 %SQUAREINTERPOLATION funkcja interpoluje funkcje dwoch zmiennych fun, na obszarze
 %|x|+|y| <= 0 podzielonym na 4*n*n trojkatow przystajacych.
+%Parametry wejsciowe:
 %   fun - funkcja dwoch zmiennych
 %   n - parametr podzialu obszaru
+%Parametry wyjsciowe:
+%   B - Tablica, ktorej kazdy wiersz zawiera odpowiednio: wspolrzedne x oraz y
+%   srodka ciezkosci trojkata, wartosc funkcji w tym punkcie, wartosc
+%   przyblizenia w tym punkcie, blad w tym punkcie.
+%   err - maksymalny blad
 
 %siatka dla funkcji
 step = 1/n;
@@ -80,9 +86,7 @@ for i=1:4*n*n
     B(i,4) = fApprox;
     B(i,5) = abs(fApprox - B(i,3));
 end
-disp('    x -- y -- f(x,y) -- fApprox(x,y) -- error');
-disp(B);
-disp('Blad maksymalny: ');
-disp(max(B(:,5)));
+
+err = max(B(:,5));
 end
 
