@@ -8,14 +8,6 @@ A = zeros(4*n*n, 12); %kazdy wiersz zawiera x1,y1,x2,y2,x3,y3,oraz srodki bokow
 B = zeros(4*n*n, 5); %wektor wynikowy - wspolrzedne srodka ciezkosci, wartosc funkcji, przyblizenia oraz blad.
 
 [k,~] = size(X);
-% for i=1:k
-%     for j=1:k
-%         if(abs(X(i,j)) + abs(Y(i,j)) > 1)
-%             X(i,j) = NaN;
-%             Y(i,j) = NaN;
-%         end            
-%     end
-% end
 
 counter = 1;
 for i=1:floor(k/2)
@@ -75,7 +67,7 @@ for i=ceil(k/2)+1:k
 end
 
 for i=1:4*n*n
-    %wlasciwa interpolacja
+    %srodek ciezkosci
     x = (A(i,1) + A(i,3) + A(i,5))/3;
     y = (A(i,2) + A(i,4) + A(i,6))/3;
     
@@ -87,11 +79,12 @@ for i=1:4*n*n
     M = zeros(6,6);
     
     for j=1:6
-        b(j) = fun(A(i,2*j-1), A(i,2*j));
-        
         xj = A(i,2*j-1);
         yj = A(i,2*j);
-        M(j,:) = [1, xj, yj, xj*yj, xj*xj, yj*yj];
+        
+        b(j) = fun(xj, yj);
+       
+        M(j,:) = [1, xj, yj, xj*yj, xj*xj, yj*yj]; 
     end
     
     c = M\b;

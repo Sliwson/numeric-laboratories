@@ -1,6 +1,6 @@
 function A = initializeAfromT(T,X,Y)
-%INITIALIZEAFROMT Summary of this function goes here
-%   Detailed explanation goes here
+%INITIALIZEAFROMT Przeprowadza konwersje ze wspolrzednych iteracyjnych
+%(<1,k>) na wspolczynniki plaszczyzny kartezjanskiej   
 x1 = X(T(1),T(2));
 x2 = X(T(3),T(4));
 x3 = X(T(5),T(6));
