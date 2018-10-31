@@ -8,11 +8,13 @@
 \usepackage[inline]{enumitem}
 \usepackage{listings}
 \usepackage{matlab-prettifier}
+\usepackage{pgfplots}
+\usepackage[Polish]{babel}
 
 \DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
 
 \title{Sprawozdanie \\Metody numeryczne 2 \\\textbf{Temat 2, Zadanie nr 12}}
-\date{10/15/2018}
+\date{28/10/2018}
 \author{Mateusz Śliwakowski, F4}
 
 \begin{document}
@@ -22,7 +24,48 @@
   \pagenumbering{arabic}
 
 \section{Treść zadania}
+\paragraph{}
+Interpolacja funkcjami kwadratowymi na obszarze $D: \vert x \vert + \vert y \vert \leq 1$ podzielonym na $4n^2$ trójkątów przystających. Tablicowanie funkcji, przybliżenia i błędu w środkach ciężkości trójkątów. Obliczenie błędu maksymalnego w tych punktach.
 \section{Opis metody}
+\subsection{Podział obszaru}
+\paragraph{}
+Na początku zobaczmy jak wygląda obszar $D: \vert x \vert + \vert y \vert \leq 1$.\\\\
+\begin{tikzpicture}
+	\begin{axis}
+	\addplot+ [fill] coordinates {
+	(0,1) (1,0) (0,-1) (-1,0)
+	}
+	--cycle
+;
+\end{axis}
+\end{tikzpicture}\\
+Podzielimy go na 4 trójkąty prostokątne:\\\\
+\begin{tikzpicture}
+	\begin{axis}
+		\addplot [color=black] coordinates {
+		(0,1) (1,0) (0,-1) (-1,0)
+		}
+		--cycle;
+		\addplot [color=black] coordinates {
+		(0,1) (0,-1)
+		};
+		\addplot [color=black] coordinates {
+		(-1,0) (1,0)
+		};
+	\end{axis}
+\end{tikzpicture}\\
+Lewy górny trójkąt podzielimy na $n^2$ trójkątów przystających w następujący sposób:
+\begin{enumerate}
+\item Przyprostokątne dzielimy na n odcinków równej długości.
+\item Tworzymy odcinki łączące punkty podziału z przeciwprostokątną równoległe do osi odpowiednio $OX$ oraz $OY$.
+\item W każdym z powstałych kwadratów prowadzimy jedną przekątną.
+\end{enumerate}
+Tym sposobem w trójkącie otrzymujemy $1 + 3 + \dots + 2n-1 = n^2$ trójkątów, zatem podział jest poprawny.
+\subsection{Interpolacja funkcjami kwadratowymi}
+\paragraph{}
+Niech $f$ - interpolowana funkcja dwóch zmiennych. Będziemy przybliżać ją funkcją kwadratową w postaci $w(x,y) = a_0 + a_1x + a_2y + a_3xy + a_4x^2 + a_5y^2$, gdzie dla $i=0,\dots,5$  $a_i \in \mathbb{R}$.
+\paragraph{}
+
 \section{Warunki i założenia}
 \section{Implementacja metody}
 \section{Przykłady i wnioski}
