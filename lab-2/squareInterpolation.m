@@ -84,9 +84,9 @@ for i=1:4*n*n
     
     fApprox = c(1) + c(2)*x + c(3)*y + c(4)*x*y + c(5)*x*x + c(6)*y*y;
     B(i,4) = fApprox;
-    B(i,5) = abs(fApprox - B(i,3));
+    B(i,5) = fApprox - B(i,3);
 end
 
-err = max(B(:,5));
+err = max(abs(B(:,5)));
 end
 
