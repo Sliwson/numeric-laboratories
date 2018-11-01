@@ -54,7 +54,7 @@ Podzielimy go na 4 trójkąty prostokątne:\\\\
 		};
 	\end{axis}
 \end{tikzpicture}\\
-Lewy górny trójkąt podzielimy na $n^2$ trójkątów przystających w następujący sposób:
+Każdy z trójkątów podzielimy na $n^2$ trójkątów przystających w następujący sposób:
 \begin{enumerate}
 \item Przyprostokątne dzielimy na n odcinków równej długości.
 \item Tworzymy odcinki łączące punkty podziału z przeciwprostokątną równoległe do osi odpowiednio $OX$ oraz $OY$.
@@ -63,11 +63,52 @@ Lewy górny trójkąt podzielimy na $n^2$ trójkątów przystających w następu
 Tym sposobem w trójkącie otrzymujemy $1 + 3 + \dots + 2n-1 = n^2$ trójkątów, zatem podział jest poprawny.
 \subsection{Interpolacja funkcjami kwadratowymi}
 \paragraph{}
-Niech $f$ - interpolowana funkcja dwóch zmiennych. Będziemy przybliżać ją funkcją kwadratową w postaci $w(x,y) = a_0 + a_1x + a_2y + a_3xy + a_4x^2 + a_5y^2$, gdzie dla $i=0,\dots,5$  $a_i \in \mathbb{R}$.
+Niech $f$ - interpolowana funkcja dwóch zmiennych. Będziemy przybliżać tę funkcję za pomocą funkcji kwadratowej postaci $w(x,y) = a_0 + a_1x + a_2y + a_3xy + a_4x^2 + a_5y^2$, gdzie dla $i=0,\dots,5$  $a_i \in \mathbb{R}$.
 \paragraph{}
-
+Aby wyznaczyć współczynniki funkcji interpolacyjnej $w$ musimy skorzystać z wartości funkcji $f$ w 6 punktach. Weźmy zatem wierzchołki trójkąta (oznaczmy je $P_0, P_1, P_2$) oraz środki boków (oznaczmy $P_{01}, P_{12}, P_{20}$). Przyjmijmy ponadto, że $P_i := (x_i, y_i)$. Utwórzmy zatem układ równań:
+$$
+\left\{ 
+\begin{array}{c}
+w(x_0,y_0) = f(x_0, y_0) \\ 
+w(x_1,y_1) = f(x_1, y_1) \\ 
+w(x_2,y_2) = f(x_2, y_2) \\ 
+w(x_{01},y_{01}) = f(x_{01}, y_{01}) \\
+w(x_{12},y_{12}) = f(x_{12}, y_{12}) \\
+w(x_{20},y_{20}) = f(x_{20}, y_{20}) \\ 
+\end{array}
+\right.
+$$
+Rozwiązując powyższy URL otrzymamy współczynniki szukanej funkcji $w$.
 \section{Warunki i założenia}
 \section{Implementacja metody}
+\paragraph{}
+\begin{lstlisting}[style=Matlab-editor]
+function [B, err] =  squareInterpolation(fun, n)
+\end{lstlisting}
+\vspace{4pt}
+Parametry wejściowe:
+\begin{itemize}
+\item $fun$ - Uchwyt do interpolowanej funkcji dwóch zmiennych,
+\item $n$ - liczba naturalna, parametr zadania.
+\end{itemize}
+Parametry wyjściowe:
+\begin{itemize}
+\item $B$ - tablica zawierająca: współrzędne x oraz y środków ciężkości trójkątów, wartości funkcji interpolowanej w tych punktach, wartości funkcji interpolacyjnej w tych punktach, błąd przybliżenia.
+\item $err$ - maksymalny błąd interpolacji.
+\end{itemize}
+\paragraph{}
+Na początku musimy znaleźć wierzchołki trójkątów wymaganych podczas interpolacji. W tym celu za pomocą funkcji $meshgrid$ dzielimy obszar na siatkę równoodległych punktów na obszarze $[-1,1]\times[-1,1]$. Następnie wyznaczamy podział lewego górnego trójkąta i zapisujemy go w wektorze pomocniczym. Podział ten odbijamy wzdłuż osi $OY$, a następnie $OX$ otrzymując wszystkie wymagane punkty.
+\paragraph{}
+Potem następuje właściwa interpolacja. Dla każdego z trójkątów:
+\begin{itemize}
+\item Zapisujemy do tablicy wynikowej współrzędne środka ciężkości danego trójkąta.
+\item Zapisujemy wartość funkcji interpolowanej w środku ciężkości.
+\item Wyznaczamy współczynniki funkcji interpolacyjnej.
+\item Tablicujemy wartość funkcji interpolacyjnej oraz błąd interpolacji.
+\end{itemize}
+Na koniec wyznaczamy maksymalny błąd.
+\paragraph{}
+Dla uproszczenia kodu, użyta została prosta funkcja $initializeAFromT$, która konwertuje współrzędne iteracyjne (z zakresu $[1,n]$) na współrzędne na płaszczyźnie.
 \section{Przykłady i wnioski}
 
 \end{document}
