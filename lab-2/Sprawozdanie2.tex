@@ -110,5 +110,52 @@ Na koniec wyznaczamy maksymalny błąd.
 \paragraph{}
 Dla uproszczenia kodu, użyta została prosta funkcja $initializeAFromT$, która konwertuje współrzędne iteracyjne (z zakresu $[1,n]$) na współrzędne na płaszczyźnie.
 \section{Przykłady i wnioski}
+\subsection{Przykłady}
+Wszystkie przedstawione przykłady zdefiniowane są w skrypcie $testInterpolation.m$. Najpierw przetestujemy funkcję interpolacyjną pod kątem maksymalnego błędu przybliżenia. W ramkach przedstawiona jest część wyjścia Matlaba po uruchomieniu skryptu $testInterpolation$.\\\\
+\begin{itemize}
+\item
+Rozpoczniemy od przykładu, gdzie nasz program powinien działać praktycznie bezbłędnie, czyli wywołamy funkcję $squareInterpolation$ dla funkcji kwadratowej dwóch zmiennych.\\
+\noindent\fbox{
+    \parbox{\textwidth}{
+    \vspace{3pt}
+    ===============TEST CASE===============\\
+    $@(x,y)\hspace{5pt}2-23*x+30*y+4*x*y-2.5*x*x+9*y*y$\\
 
+	n = 1: maxError: 0\\
+	n = 10: maxError: 1.4211e-14\\
+	n = 100: maxError: 1.7764e-14\\
+	n = 200: maxError: 1.7764e-14
+	}
+}\\\\
+Zgodnie z oczekiwaniami otrzymujemy dokładność porównywalną z dokładnością maszynową.
+\item
+Zobaczmy jak program zachowa się dla funkcji złożonej z funkcji trygonometrycznych.
+\noindent\fbox{
+    \parbox{\textwidth}{
+    \vspace{3pt}
+	===============TEST CASE===============\\
+    $@(x,y)\hspace{5pt}sin(x)+3*cos(y)-4*sin(x*y)+8*cos(x*x*y)$\\
+
+	n = 1: maxError: 0.039506\\
+	n = 10: maxError: 0.00026801\\
+	n = 100: maxError: 3.1845e-07\\
+	n = 200: maxError: 4.0173e-08
+	}
+}\\\\
+Program zachowuje się poprawnie - wraz ze wzrostem liczby trójkątów, których używamy do interpolacji rośnie dokładność.
+\item
+
+\noindent\fbox{
+    \parbox{\textwidth}{
+    \vspace{3pt}
+	===============TEST CASE===============\\
+	$@(x,y)\hspace{5pt}tan(2*x+3*y)$\\
+
+	n = 1: maxError: 17.2849\\
+	n = 10: maxError: 216.6608\\
+	n = 100: maxError: 599.0144\\
+	n = 200: maxError: 770.5785
+    }
+}
+\end{itemize}
 \end{document}
