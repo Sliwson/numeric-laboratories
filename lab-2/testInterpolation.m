@@ -6,6 +6,10 @@ testFourCases(f);
 f = @(x,y) sin(x) + 3*cos(y) - 4*sin(x*y) + 8*cos(x*x*y);
 testFourCases(f);
 
+%wielomian wy?szego stopnia
+f = @(x,y) 4*x^9+3*x^3+8*x-4*y^8+3*y^2;
+testFourCases(f);
+
 %funkcja której pochodna w naszym obszarze jest nieograniczona.
 f = @(x,y) tan (2*x + 3*y);
 testFourCases(f);
