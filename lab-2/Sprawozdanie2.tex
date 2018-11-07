@@ -20,7 +20,7 @@
 \begin{document}
   \pagenumbering{gobble}
   \maketitle
-	  \newpage
+ 	  \newpage
   \pagenumbering{arabic}
 
 \section{Treść zadania}
@@ -79,7 +79,6 @@ w(x_{20},y_{20}) = f(x_{20}, y_{20}) \\
 \right.
 $$
 Rozwiązując powyższy URL otrzymamy współczynniki szukanej funkcji $w$.
-\section{Warunki i założenia}
 \section{Implementacja metody}
 \paragraph{}
 \begin{lstlisting}[style=Matlab-editor]
@@ -111,10 +110,10 @@ Na koniec wyznaczamy maksymalny błąd.
 Dla uproszczenia kodu, użyta została prosta funkcja $initializeAFromT$, która konwertuje współrzędne iteracyjne (z zakresu $[1,n]$) na współrzędne na płaszczyźnie.
 \section{Przykłady i wnioski}
 \subsection{Przykłady}
-Wszystkie przedstawione przykłady zdefiniowane są w skrypcie $testInterpolation.m$. Najpierw przetestujemy funkcję interpolacyjną pod kątem maksymalnego błędu przybliżenia. W ramkach przedstawiona jest część wyjścia Matlaba po uruchomieniu skryptu $testInterpolation$.\\\\
+Wszystkie przedstawione przykłady zdefiniowane są w skrypcie $testInterpolation.m$. Najpierw przetestujemy funkcję interpolacyjną pod kątem maksymalnego błędu przybliżenia. W ramkach przedstawiona jest część wyjścia Matlaba po uruchomieniu skryptu $testInterpolation$.\\
 \begin{itemize}
 \item
-Rozpoczniemy od przykładu, gdzie nasz program powinien działać praktycznie bezbłędnie, czyli wywołamy funkcję $squareInterpolation$ dla funkcji kwadratowej dwóch zmiennych.\\
+Rozpoczniemy od przykładu, gdzie nasz program powinien działać praktycznie bezbłędnie, czyli wywołamy funkcję $squareInterpolation$ dla funkcji kwadratowej dwóch zmiennych.\\\\
 \noindent\fbox{
     \parbox{\textwidth}{
     \vspace{3pt}
@@ -129,7 +128,7 @@ Rozpoczniemy od przykładu, gdzie nasz program powinien działać praktycznie be
 }\\\\
 Zgodnie z oczekiwaniami otrzymujemy dokładność porównywalną z dokładnością maszynową.
 \item
-Zobaczmy jak program zachowa się dla funkcji złożonej z funkcji trygonometrycznych.
+Zobaczmy jak program zachowa się dla funkcji złożonej z funkcji trygonometrycznych.\\\\
 \noindent\fbox{
     \parbox{\textwidth}{
     \vspace{3pt}
@@ -144,7 +143,22 @@ Zobaczmy jak program zachowa się dla funkcji złożonej z funkcji trygonometryc
 }\\\\
 Program zachowuje się poprawnie - wraz ze wzrostem liczby trójkątów, których używamy do interpolacji rośnie dokładność.
 \item
+Dla wielomianu wyższego stopnia:\\\\
+\noindent\fbox{
+    \parbox{\textwidth}{
+    \vspace{3pt}
+	===============TEST CASE===============\\
+    $@(x,y)\hspace{5pt}@4*x^9+3*x^3+8*x-4*y^8+3*y^2;$\\
 
+	n = 1: maxError: 0.97998\\
+	n = 10: maxError: 0.00906\\
+	n = 100: maxError: 1.2157e-05\\
+	n = 200: maxError: 1.5444e-06
+	}
+}\\\\
+Również osiągamy dobrą dokładność dla wysokich n, lecz już nie tak wysoką jak dla funkcji trygonometrycznej.
+\item
+Na koniec sprawdźmy jak program zadziała dla funkcji, która w zadanym przedziale ma punkty, dla których nie jest określona.\\\\
 \noindent\fbox{
     \parbox{\textwidth}{
     \vspace{3pt}
@@ -156,6 +170,25 @@ Program zachowuje się poprawnie - wraz ze wzrostem liczby trójkątów, któryc
 	n = 100: maxError: 599.0144\\
 	n = 200: maxError: 770.5785
     }
-}
+}\\\\
+W tym przypadku nie jesteśmy w stanie przeprowadzić poprawnej interpolacji - dla wszystkich wartości n maksymalny błąd osiąga wysokie wartości. Dzieje się tak dlatego, że w otoczeniu punktów, gdzie funkcja tangens nie jest określona jej pochodna osiąga bardzo wysokie wartości - nie jest zatem możliwa dokładna interpolacja.
 \end{itemize}
+\newpage
+\subsection{Doświadczalne wyznaczenie współczynnika zbieżności}
+Sprawdźmy teraz jaki jest współczynnik zbieżności naszej metody. W każdej iteracji będziemy zwiększać parametr n dwa razy i wyświetlać iloraz kolejnych błędów.
+\\\\
+\noindent\fbox{
+    \parbox{\textwidth}{
+    \vspace{3pt}
+	5.7240\\
+    7.6428\\
+    7.3948\\
+    7.7738\\
+    7.9081\\
+    7.9693\\
+    7.9837\\
+    7.9916
+    }
+}\\\\
+Jak widać $n\rightarrow8$ zatem współczynnik zbieżności może wynosić 3 (bo $2^3=8$).
 \end{document}
