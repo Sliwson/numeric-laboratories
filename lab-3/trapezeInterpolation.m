@@ -1,7 +1,15 @@
-function [outputArg1,outputArg2] = trapezeInterpolation(inputArg1,inputArg2)
-%TRAPEZEINTERPOLATION Summary of this function goes here
-%   Detailed explanation goes here
-outputArg1 = inputArg1;
-outputArg2 = inputArg2;
+function sum = trapezeInterpolation(fun, a, b, c, d, n, m)
+%TRAPEZEINTERPOLATION Funckja oblicza calke podwojna z funkcji fun na
+%obszarze [a,b]x[c,d] zlozonymi kwadraturami trapezow ze wzgledu na kazda
+%zmienna.
+
+h1 = (b-a)/n;
+h2 = (d-c)/m;
+
+x = linspace(a,b,n+1);
+y = linspace(c,d,m+1);
+
+
+
 end
 
