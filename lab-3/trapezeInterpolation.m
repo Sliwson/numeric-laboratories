@@ -9,7 +9,13 @@ h2 = (d-c)/m;
 x = linspace(a,b,n+1);
 y = linspace(c,d,m+1);
 
+cPrev = h1*h2/4;
 
-
+sum = 0;
+for i=1:n+1
+    for j=1:m+1
+        sum = sum + cPrev * getCoefficient(i,j,n,m) * fun (x(i),y(j));
+    end
+end
 end
 
