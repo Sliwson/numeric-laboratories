@@ -9,6 +9,6 @@ disp("============================================");
 disp(f);
 disp(['result = ', num2str(result, 10)]);
 disp(['Matlab = ', num2str(resultMatlab, 10)]);
-disp(['roznica = ', num2str(result - resultMatlab)]);
+disp(['difference = ', num2str(result - resultMatlab)]);
 end
 
