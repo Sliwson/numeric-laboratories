@@ -1,3 +1,7 @@
 *.aux
 *.log
 *.gz
+*.dvi
+lab-2/instruction.txt
+lab-2/test\ ideas.txt
+lab-2/pgfplots.pdf
