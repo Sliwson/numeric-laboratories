@@ -2,6 +2,7 @@
 *.log
 *.gz
 *.dvi
+*.asv
 lab-2/instruction.txt
 lab-2/test\ ideas.txt
 lab-2/pgfplots.pdf
