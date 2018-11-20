@@ -1,23 +1,57 @@
+warning('off','all')
+
 %funkcja stala
 f = @(x,y) 1 + x - x;
-a = -2; 
-c = -2;
-b = 2; 
-d = 2;
+a = 1; 
+c = 1;
+b = 3; 
+d = 3;
 
 n = 10;
 m = 10;
 
 compareMatlab(f,a,b,c,d,n,m);
 
-f = @(x,y) 2 .* x .* x .* y - 3.*cos(x.*y) + 3;
-compareMatlab(f,a,b,c,d,n,m);
-n = 20; m = 20;
-compareMatlab(f,a,b,c,d,n,m);
-n = 50; m = 50;
-compareMatlab(f,a,b,c,d,n,m);
-n = 100; m = 100;
-compareMatlab(f,a,b,c,d,n,m);
-n = 1000; m = 1000;
+%funkcja liniowa
+f = @(x,y) 2*x + 3*y;
 compareMatlab(f,a,b,c,d,n,m);
 
+%funkcja kwadratowa
+f = @(x,y) -3.*x.*x + 2.*y.*y + 3.*x.*y - 8;
+compareMatlab(f,a,b,c,d,n,m);
+
+%funkcja trygonometryczna 
+n = 500; m = 500;
+f = @(x,y) sin(x) .* cos(x);
+compareMatlab(f,a,b,c,d,n,m);
+
+%wyznaczenie wspolczynnika zbieznosci
+f = @(x,y) 2 .* x .* x .* y - 3.*cos(x.*y) + 3;
+
+densities = [10,20,40,80,160,320,640,1280];
+errors = zeros(1,8);
+ratios = zeros(1,7);
+
+n = 10; m = 10;
+errors(1) = compareMatlab(f,a,b,c,d,n,m);
+
+for i=2:8
+    n = densities(i);
+    m = densities(i);
+    
+    errors(i) = compareMatlab(f,a,b,c,d,n,m);
+    ratios(i-1) = errors(i-1)/errors(i);
+end
+
+disp("============================================");
+disp("Ratios: ");
+format short;
+disp(ratios);
+
+%bardzo gesty podzial
+n = 5000; m = 5000;
+compareMatlab(f,a,b,c,d,n,m);
+
+%funkcja z nieograniczona pochodn?
+f = @(x,y) tan(x./y);
+compareMatlab(f,a,b,c,d,n,m);
