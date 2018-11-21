@@ -62,4 +62,29 @@ $$\{C_{ij}\}=\{A_iB_j\}=\frac{h_1}{2}
 2 & 4 & 4 & \dots & 4 & 2\\
 1 & 2 & 2 & \dots & 2 & 1
 \end{bmatrix}$$
+\section{Warunki i założenia}
+\begin{enumerate}
+\item $f(x,y)$ jest całkowalna na obszarze $D$.
+\item Podany obszar $D$ jest poprawny, tj. $a<b$ oraz $c<d$.
+\item Liczba podziałów jest poprawna, tj. $n >0$ oraz $m > 0$.
+\end{enumerate}
+\section{Implementacja metody}
+\paragraph{}
+\begin{lstlisting}[style=Matlab-editor]
+function result = trapezeInterpolation(fun, a, b, c, d, n, m)
+\end{lstlisting}
+\vspace{4pt}
+Parametry wejściowe:
+\begin{itemize}
+\item $fun$ - Uchwyt do funkcji dwóch zmiennych, z której ma być policzona całka,
+\item $a,b,c,d$ - liczby rzeczywiste, definiujące obszar $D$,
+\item $n,m$ - ilość podziałów odpowiednio wzdłuż osi $OX$ i $OY$.
+\end{itemize}
+Parametry wyjściowe:
+\begin{itemize}
+\item $result$ - zadana całka.
+\end{itemize}
+\paragraph{}
+Na początku definiujemy szerokości pojedynczych podziałów, oraz wyznaczamy wektor punktów podziału. Obliczenie całki następuje w podwójnej pętli \textit{for} jak w rozdziale \textit{Opis metody}. Jako że macierz $C$ nie ma skomplikowanej postaci, to poszczególne elementy dostajemy przy użyciu pomocniczej funkcji \textit{getCoefficient} przyjmującej indeksy $x$, $y$ oraz liczbę podziałów wzdłuż osi $OX$ oraz $OY$.
+\section{Przykłady i wnioski}
 \end{document}
