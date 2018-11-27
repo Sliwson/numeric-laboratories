@@ -30,12 +30,12 @@ Obliczanie całek $\iint_D f(x,y) \,dx\,dy$, gdzie $D = [a,b]\times[c,d]$ złoż
 \paragraph{}
 Zaczniemy od rozpisania ogólnego przypadku liczenia całki na prostokącie, a następnie zastosujemy kwadraturę trapezów ze względu na każdą zmienną.
 \paragraph{}
-Mamy dane: $f(x,y)$, $D = [a,b]\times[c,d]$, gdzie $a,b,c,d\in\mathbb{R}$ oraz $n,m\in\mathbb{R}$ - ilość podziałów wzdłuż osi odpowiednio $OX$, $OY$. Zdefiniujmy podziały:
+Mamy dane: $f(x,y)$, $D = [a,b]\times[c,d]$, gdzie $a,b,c,d\in\mathbb{R}$ oraz $n,m\in\mathbb{N}$ - ilość podziałów wzdłuż osi odpowiednio $OX$, $OY$. Zdefiniujmy podziały:
 $$x_i=a+h_1i\text{, gdzie }h_1=\dfrac{b-a}{n}\text{, }i=0,\dots,n$$
-$$_i=a+h_2j\text{, gdzie }h_2=\dfrac{d-c}{m}\text{, }j=0,\dots,n$$
+$$y_j=c+h_2j\text{, gdzie }h_2=\dfrac{d-c}{m}\text{, }j=0,\dots,m$$
 Załóżmy, że $S_1$ i $S_2$ są danymi kwadraturami dla funkcji jednej zmiennej $g$.\\
-$$S_1(g) = \Sigma_{I=0}^{n}A_ig(x_i)=\int_a^bg(x)dx$$
-$$S_2(g) = \Sigma_{j=0}^{M}B_jg(y_i)=\int_c^dg(y)dy$$
+$$S_1(g) = \Sigma_{I=i=0}^{n}A_ig(x_i)=\int_a^bg(x)dx$$
+$$S_2(g) = \Sigma_{j=0}^{m}B_jg(y_j)=\int_c^dg(y)dy$$
 Zastosujemy $S_1$ do funkcji $f=f(x,y)$, ze względu na x.
 $$S_1(f)(y)=\Sigma_{i=0}^nA_if(x_i,y)$$
 a następnie $S_2$, ze względu na y
@@ -43,7 +43,7 @@ $$S_2(S_1(f))=\Sigma_{j=0}^mB_j(\Sigma_{i=0}^nA_if(x_i,y_j))=\Sigma_{i=0}^n\Sigm
 Kwadratura złożona trapezów ma postać:
 $$S_1(g)=\frac{h_1}{2}[g(a)+g(b)+2\Sigma_{i=1}^{n-1}g(x_i)]$$
 Stosując kwadraturę trapezów ze względu na każdą ze zmiennych otrzymamy macierz współczynników:
-$$\{C_{ij}\}=\{A_iB_j\}=\frac{h_1}{2}
+$$\{C_{ij}\}=\{A_iB_j\}=\frac{h_1}{h_2}
 \begin{bmatrix}
 1\\
 2\\
@@ -66,7 +66,7 @@ $$\{C_{ij}\}=\{A_iB_j\}=\frac{h_1}{2}
 \begin{enumerate}
 \item $f(x,y)$ jest całkowalna na obszarze $D$.
 \item Podany obszar $D$ jest poprawny, tj. $a<b$ oraz $c<d$.
-\item Liczba podziałów jest poprawna, tj. $n >0$ oraz $m > 0$.
+\item Liczba podziałów jest poprawna, tj. $n >0$ oraz $m > 0$, liczby te są całkowite.
 \end{enumerate}
 \section{Implementacja metody}
 \paragraph{}
