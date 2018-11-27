@@ -1,6 +1,6 @@
 function  err = compareMatlab(f,a,b,c,d,n,m)
 %COMPAREMATLAB Funkcja porownuje dzialanie naszej funkcji z wynikiem
-%uzyskanym funkcj? Matlaba
+%uzyskanym za pomoca funkcji Matlaba
 result = trapezeInterpolation(f,a,b,c,d,n,m);
 resultMatlab = integral2(f,a,b,c,d);
 
