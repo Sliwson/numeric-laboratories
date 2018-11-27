@@ -85,6 +85,102 @@ Parametry wyjściowe:
 \item $result$ - zadana całka.
 \end{itemize}
 \paragraph{}
-Na początku definiujemy szerokości pojedynczych podziałów, oraz wyznaczamy wektor punktów podziału. Obliczenie całki następuje w podwójnej pętli \textit{for} jak w rozdziale \textit{Opis metody}. Jako że macierz $C$ nie ma skomplikowanej postaci, to poszczególne elementy dostajemy przy użyciu pomocniczej funkcji \textit{getCoefficient} przyjmującej indeksy $x$, $y$ oraz liczbę podziałów wzdłuż osi $OX$ oraz $OY$.
+Na początku definiujemy szerokości pojedynczych podziałów, oraz wyznaczamy wektory punktów podziału. Obliczenie całki następuje w podwójnej pętli \textit{for}, jak w rozdziale \textit{Opis metody}. Jako że macierz $C$ nie ma skomplikowanej postaci, to poszczególne elementy dostajemy przy użyciu pomocniczej funkcji \textit{getCoefficient}, przyjmującej indeksy $x$, $y$ oraz liczbę podziałów wzdłuż osi $OX$ oraz $OY$.
 \section{Przykłady i wnioski}
+Testy zdefiniowane są w pliku \textit{test.m}. Prezentowane ramki będą zawierały sformatowane wyjście funkcji \textit{compareMatlab}. Funkcja ta porównuje działanie programu z obliczeniami uzyskanymi za pomocą wbudowanej funkcji Matlaba \textit{integral2} oraz z wynikiem działania pakietu symbolicznego.
+\begin{enumerate}
+\item Rozpocznijmy testy od funkcji stałej, która powinna dać wynik dokładny.\\\\
+\noindent\fbox{
+    \parbox{\textwidth}{
+    \vspace{3pt}
+	    $@(x,y)1$\\
+		$D = [1,3]\times[1,3]$\\
+		$n = 10, m = 10$\\
+		$result = 4$\\
+		$Matlab = 4$\\
+		$Symbolic = 4$
+    }
+}\\\\
+\item Kolejna funkcja, która powinna dać wynik dokładny to funkcja liniowa.\\\\
+\noindent\fbox{
+    \parbox{\textwidth}{
+    \vspace{3pt}
+	    $@(x,y)2x+3y$\\
+		$D = [1,3]\times[1,3]$\\
+		$n = 10, m = 10$\\
+		$result = 40$\\
+		$Matlab = 40$\\
+		$Symbolic = 40$
+    }
+}\\\\
+\item Przybliżając całkę z funkcji kwadratowej powinniśmy otrzymać pierwsze błędy.\\\\
+\noindent\fbox{
+    \parbox{\textwidth}{
+    \vspace{3pt}
+	    $@(x,y)-3.*x.*x+2.*y.*y+3.*x.*y-8$\\
+		$D = [1,3]\times[1,3]$\\
+		$n = 10, m = 10$\\
+		$result = 1.36$\\
+		$Matlab = -1.333333333$\\
+		$Symbolic = -1.333333333$
+    }
+}\\\\
+\item Sprawdźmy funkcję trygonometryczną. Tym razem podzielimy obszar na więcej części.\\\\
+\noindent\fbox{
+    \parbox{\textwidth}{
+    \vspace{3pt}
+	    $@(x,y)sin(x).*cos(y)$\\
+		$D = [1,3]\times[1,3]$\\
+		$n = 500, m = 500$\\
+		$result = -1.071740602$\\
+		$Matlab = -1.07174346$\\
+		$Symbolic = -1.07174346$
+    }
+}\\\\
+Błąd obliczeń nie jest duży, lecz podział obszaru był gesty oraz wykonanie funkcji zajmuje więcej czasu niż wykonanie \textit{integral2}.
+\item Następnie zbadamy współczynnik zbieżności metody trapezów. Weźmy $f(x,y)= 2 .* x .* x .* y - 3.*cos(x.*y) + 3$ - złożenie funkcji wielomianowej i trygonometrycznej. Zaczynając od 10 będziemy zwiększać gęstość obszaru cztery razy w każdej iteracji.\\\\
+\noindent\fbox{
+    \parbox{\textwidth}{
+    \vspace{3pt}
+		$n = 10$; $error = 0.062626$\\
+		$n = 20$; $error = 0.01566$9\\
+		$n = 40$; $error = 0.0039181$\\
+		$n = 80$; $error = 0.00097956$\\
+		$n = 160$; $error = 0.00024489$\\
+		$n = 320$; $error = 6.1224e-05$\\
+		$n = 640$; $error = 1.5306e-05$\\
+		$n = 1280$; $error = 3.8265e-06$
+    }
+}\\\\
+\noindent\fbox{
+    \parbox{\textwidth}{
+    \vspace{3pt}
+    	Stosunki kolejnych błędów:\\
+		$3.9968$\\
+		$3.9992$\\
+		$3.9998$\\
+		$4.0000$\\
+		$4.0000$\\
+		$4.0000$\\
+		$4.0000$
+
+    }
+}\\\\
+Za każdym razem, gdy zwiększamy gęstość obszaru cztery razy, błąd zmniejsza się cztery razy, zatem współczynnik zbieżności metody wynosi 1 - nie jest to zbyt wysoka wartość.
+\item Na koniec zobaczmy jak program zachowa się dla funkcji niecałkowalnej na danym obszarze.\\\\
+\noindent\fbox{
+    \parbox{\textwidth}{
+    \vspace{3pt}
+    	$@(x,y)tan(x./y)$\\
+		$D = [-1,1]\times[-1,1]$\\
+		$n = 5000, m = 5000$\\
+		$result = NaN$\\
+		$Matlab = -0.0007325434555$\\
+		Symbolic function cannot compute result
+	}
+}\\\\
+Jak widzimy wynik działania naszego programu nie jest liczbą. Pakiet symboliczny również nie zwrócił wyniku. Co ciekawe, wynik będący liczbą otrzymaliśmy przy użyciu funkcji \textit{integral2}. Nierozważny użytkownik, bez analizy wyglądu funkcji mógłby uznać go za poprawny.
+\end{enumerate}
+\paragraph{}
+Analizując powyższe przykłady można dojść do wniosku, że złożona kwadratura trapezów nie jest najlepszą metoda obliczania całki z funkcji dwóch zmiennych. Jednak warto zauważyć, że jest ona bardzo prosta w założeniach oraz implementacji, także może posłużyć jako punkt wyjścia dla bardziej skomplikowanych metod.
 \end{document}
