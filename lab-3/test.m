@@ -22,7 +22,7 @@ compareMatlab(f,a,b,c,d,n,m);
 
 %funkcja trygonometryczna 
 n = 500; m = 500;
-f = @(x,y) sin(x) .* cos(x);
+f = @(x,y) sin(x) .* cos(y);
 compareMatlab(f,a,b,c,d,n,m);
 
 %wyznaczenie wspolczynnika zbieznosci
@@ -44,6 +44,11 @@ for i=2:8
 end
 
 disp("============================================");
+disp("Errors: ");
+format long;
+for i=1:8
+    disp(['n = ', num2str(densities(i)), '; error = ', num2str(errors(i))]);
+end
 disp("Ratios: ");
 format short;
 disp(ratios);
@@ -53,5 +58,6 @@ n = 5000; m = 5000;
 compareMatlab(f,a,b,c,d,n,m);
 
 %funkcja z nieograniczona pochodn?
+a = -1; b = 1; c = -1; d = 1;
 f = @(x,y) tan(x./y);
 compareMatlab(f,a,b,c,d,n,m);
