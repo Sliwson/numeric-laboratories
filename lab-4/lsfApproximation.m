@@ -1,4 +1,4 @@
-function [fApprox, tab] = lsfApproximation(f,n,a,b,c,d)
+function [fApprox, tab, err] = lsfApproximation(f,n,a,b,c,d)
 %lsfApproximation Przybliza funkcje f wzorami empirycznymi w bazie
 %1,x,y,x^2y^2, tak aby zminimalizowac blad kwadratowy. Przyblizenie
 %wykonujemy na n losowych punktach z prostokata [a,b]x[c,d].
@@ -38,5 +38,7 @@ tab(:,2) = y;
 tab(:,3) = f(x,y);
 tab(:,4) = fApprox(x,y);
 tab(:,5) = tab(:,4)-tab(:,3);
+
+err = sqrt(sum(tab(:,5).*(tab(:,5)))/n);
 end
 
