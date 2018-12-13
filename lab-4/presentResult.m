@@ -5,6 +5,7 @@ function presentResult(f,n,a,b,c,d)
 [fApprox, tab, err] = lsfApproximation(f,n,a,b,c,d);
 
 hold off;
+set(gcf, 'Position', get(0, 'Screensize'));
 fsurf(f,[a,b,c,d],'r');
 hold on;
 fsurf(fApprox,[a,b,c,d],'--','EdgeColor','g');
