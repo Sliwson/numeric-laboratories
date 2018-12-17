@@ -45,10 +45,17 @@ for i = 1:n-1
 end
 
 %Obliczenie wektora wyjsciowego dla macierzy trojkatnej gornej
+if(v2(n) == 0 || v2(n-1) == 0)
+    error('Blad dzielenia przez 0');
+end
+
 x(n) = y(n)/v2(n);
 x(n-1) = (y(n-1)-v1(n)*x(n))/v2(n-1);
 
 for i=n-2:-1:1
+    if(v2(i) == 0)
+        error('Blad dzielenia przez 0');
+    end
     x(i) = (y(i) - x(i+1)*v1(i+1) - x(i+2)*v0(i+2))/v2(i);
 end
 
