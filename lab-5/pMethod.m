@@ -17,4 +17,4 @@ end
 
 s = dot(x_prev, y_next);
 lambda = 1/s + lambdaApproximation;
-
+end
