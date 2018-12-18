@@ -31,7 +31,7 @@ Odwrotna metoda potęgowa z normowaniem dla macierzy trójdiagonalnej. Poszukiwa
 \subsection{Odwrotna metoda potęgowa}
 \paragraph{}
 Odwrotna metoda potęgowa korzysta z następującego twierdzenia:\\
-\textit{Jeśli $\lambda$ jest wartością własną nieosobliwej macierzy $A$ to $\lambda^-1$ jest wartością własną macierzy $A^-1$.}
+\textit{Jeśli $\lambda$ jest wartością własną nieosobliwej macierzy $A$ to $\lambda(^-1)$ jest wartością własną macierzy $A^{-1}$.}
 Polega ona na zastosowaniu metody potęgowej do macierzy $A^-1$.
 \paragraph{}
 Jeśli dobierzemy $\lambda^*$ takie, że $det(A-\lambda^{*}I)\neq0$ to $$\lambda \in \sigma(A) \Leftrightarrow \lambda \neq \lambda^{*} \wedge \frac{1}{\lambda-\lambda^{*}} \in \sigma(A-\lambda^* I)^{-1}$$ 
@@ -51,5 +51,33 @@ Załóżmy, że mamy daną macierz $A\in\mathbb{R}^{n\times n}$ - trójdiagonaln
 \end{enumerate}
 Następnie obliczamy elementy wektora wynikowego korzystając z prostego algorytmu dla macierzy trójkątnej górnej.
 \section{Implementacja metody}
+Polecenie zadania realizuje funkcja \textit{pMethod}. Jej ciało nie jest obszerne, dlatego zamieszczam je poniżej:
+\begin{lstlisting}[style=Matlab-editor]
+function lambda = pMethod(v1, v2, v3, lambdaApproximation, iterations)
 
+	n = size(v2,2);
+	v2 = v2 - lambdaApproximation*ones(1,n);
+
+	x_prev = ones(n,1);
+
+	for i=1:iterations
+    	y_next = solveTridiagonal(v1,v2,v3,x_prev);
+    	x_prev = y_next/norm(y_next);
+	end
+
+	s = dot(x_prev, y_next);
+	lambda = 1/s + lambdaApproximation;
+end
+\end{lstlisting}
+\vspace{4pt}
+Parametry wejściowe:
+\begin{itemize}
+\item $v1, v2, v3$ - wektory zawierające diagonale, $v1$ zawiera diagonalę górną, $v2$ główną, a $v3$ dolną,
+\item $lambdaApproximation$ - przybliżenie wartości własnej ($\lambda^*$),
+\item $iterations$ - liczba iteracji, którą ma wykonać algorytm.
+\end{itemize}
+Parametry wyjściowe:
+\begin{itemize}
+\item $lambda$ - wyjściowa wartość własna - jeżeli algorytm zadziała poprawnie jest to wartość własna najbliższa $lambdaApproximation$.
+\end{itemize}
 \end{document}
