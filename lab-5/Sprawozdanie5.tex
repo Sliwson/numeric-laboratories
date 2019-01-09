@@ -37,11 +37,11 @@ Polega ona na zastosowaniu metody potęgowej do macierzy $A^{-1}$.
 Jeśli dobierzemy $\lambda^*$ takie, że $det(A-\lambda^{*}I)\neq0$ to $$\lambda \in \sigma(A) \Leftrightarrow \lambda \neq \lambda^{*} \wedge \frac{1}{\lambda-\lambda^{*}} \in \sigma(A-\lambda^* I)^{-1}$$ 
 \paragraph{}
 Zatem aby wyznaczyć wartość własną A, najbliższą danej $\lambda^*$, należy zastosować metodę potęgową do macierzy $(A-\lambda^*I)^{-1}$.\\
-Ze względów wydajnościowych nie należy obliczać macierzy $(A-\lambda^*I)^{-1}$ (jest to kosztowna operacja). Pojedynczy krok metody potęgowej wykonujemy rozwiązując układ równań liniowych $(A - \lambda^*I)x^{(k)} = x^{(k-1)}$. Szczegółowy opis metody rozwiązywania tego układu zostanie opisany w następnej sekcji sprawozdania.
+Ze względów wydajnościowych nie należy obliczać macierzy $(A-\lambda^*I)^{-1}$ (jest to kosztowna operacja). Pojedynczy krok metody potęgowej wykonujemy rozwiązując układ równań liniowych $(A - \lambda^*I)x^{(k)} = x^{(k-1)}$. Szczegółowy opis metody rozwiązywania tego układu zostanie przedstawiony w następnej sekcji sprawozdania.
 \subsection{Rozwiązywanie układu równań z macierzą trójdiagonalną}
 \label{tridiagonal}
 \paragraph{}
-Mając macierz trójdiagonalną, nie jest optymalnym przechowywać ją całą w pamięci - lepszym rozwiązaniem jest zapisywanie trzech wektorów zawierających elementy kolejnych diagonali. Wygodnymi sposobami na rozwiązanie takich równań są m. in. metody iteracyjne, czy metoda Thomasa. Jednak na potrzeby zadania zdecydowałem się na zaimplementowanie metody GEPP dla tego szczególnego przypadku, ponieważ jest ona bardziej niezawodna niż wyżej podane.
+Mając macierz trójdiagonalną, nie jest optymalnym przechowywać ją całą w pamięci - lepszym rozwiązaniem jest zapisywanie trzech wektorów zawierających elementy kolejnych diagonali. Wygodnymi sposobami na rozwiązanie takich równań są m. in. metody iteracyjne, czy metoda Thomasa. Jednak na potrzeby zadania zdecydowałem się na zaimplementowanie metody GEPP dla tego szczególnego przypadku, ponieważ jest ona mniej zawodna niż wyżej podane.
 \paragraph{}
 Algorytm GEPP:\\
 Załóżmy, że mamy daną macierz $A\in\mathbb{R}^{n\times n}$ - trójdiagonalna. Dla $k=1:n-1$:
@@ -99,7 +99,7 @@ Parametry wyjściowe:
 \item $iterations$ - liczba iteracji, jaką wykonał algorytm.
 \end{itemize}
 \paragraph{}
-Na początku odejmujemy od każdego elementu głównej diagonali wartość $lambdaApproximation$. Następnie losujemy przybliżenie początkowe i inicjalizujemy zmienne pomocnicze. Pętlę \textit{while} wykonujemy do uzyskania zadanej dokładności lub przekroczenia maksymalnej ilości iteracji. W jej wnętrzu wykonujemy algorytm zgodnie z opisem z sekcji \textit{Opis metody}.
+Na początku odejmujemy od każdego elementu głównej diagonali wartość $lambdaApproximation$. Następnie losujemy przybliżenie początkowe i inicjalizujemy zmienne pomocnicze. Pętlę \textit{while} wykonujemy do uzyskania zadanej dokładności lub przekroczenia maksymalnej liczby iteracji. W jej wnętrzu wykonujemy algorytm zgodnie z opisem z sekcji \textit{Opis metody}.
 \paragraph{}
 Do rozwiązania układu równań $(A - \lambda^*I)x^{(k)} = x^{(k-1)}$ używamy funkcji \textit{solveTridiagonal}, która zaimplementowana jest zgodnie z opisem w punkcie \ref{tridiagonal}. Ponadto w celu ułatwienia przeprowadzania testów utworzyłem funkcje przydatne przy pracy z macierzami trójdiagonalnymi: \textit{createMatrixFromVectors} - tworzącą macierz kwadratową na podstawie danych wektorów oraz \textit{getThreeDiagonals} zwracającą 3 diagonale danej macierzy.
 \section{Przykłady i wnioski}
