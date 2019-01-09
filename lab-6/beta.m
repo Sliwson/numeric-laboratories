@@ -1,13 +1,13 @@
-n = 1000;
+n = 100000;
 
 y1 = zeros(1,n);
 y2 = zeros(1,n);
 x = zeros(1,n);
 
-y1(1) = 0.65; %kat wychylenia wahadla
-y2(1) = 0.4; %predkosc katowa
+y1(1) = 30/180*2*pi; %kat wychylenia wahadla
+y2(1) = 3; %predkosc katowa
 
-h = 0.01;
+h = 0.0001;
 k = 10;
 
 x(1) = 0;
@@ -21,7 +21,16 @@ for i = 1:n-1
     x(i+1) = x(i) + h;
 end
 
-plot(x,y1);
-hold on;
-plot(x,y2);
+subplot(2,1,1);
+plot(x,y1)
+title('Zale¿noœæ k¹ta wychylenia wahad³a od czasu')
+xlabel('t(s)');
+ylabel('\alpha(rad)');
+line(xlim, [0 0],'Color','black','LineStyle','--');
 
+subplot(2,1,2);
+plot(x,y2)
+title('Zale¿noœæ prêdkoœci k¹towej od czasu')
+xlabel('t(s)');
+ylabel('\omega(rad/s)');
+line(xlim, [0 0],'Color','black','LineStyle','--');
