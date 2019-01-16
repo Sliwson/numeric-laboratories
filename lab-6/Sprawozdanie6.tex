@@ -28,4 +28,120 @@
 \paragraph{}
 Wahadło matematyczne. Zastosować wybraną metodę Rungego-Kutty rzędu 2-go dla układu dwóch równań. Patrz "Ćwiczenia laboratoryjne z metod numerycznych" pod redakcją J. Wąsowskiego, OWPW, podrozdział 7.6.
 \section{Opis metody}
+\subsection{Wahadło matematyczne}
+\paragraph{}
+Równanie wahadła matematycznego (punkt materialny, zawieszony na nici o długości $l$) to klasyczny przykład równania rzędu 2.
+\begin{figure}[H]
+  \includegraphics[width=100px]{pic-1.png}
+\end{figure}
+Niech $\alpha = y(t)$ - wychylenie wahadła względem pionu.
+$$\vec{F} = ma$$
+$$a = \frac{\vec{F}}{m}$$
+Jedyną siłą czynną w tym układzie jest $\vec{F}_s$ ($\vec{F}_n$ odpowiada wyłącznie za naciąg nici.
+$$a = \frac{mg \sin{\alpha}}{m}$$
+$$a = g\sin{\alpha}$$
+$$a = \epsilon \cdot l$$
+$$\epsilon = -\frac{g}{l}\sin{\alpha}$$
+$$\omega = \frac{d\epsilon}{dt}$$
+$$\alpha = \frac{d\omega}{dt}$$
+$$\frac{d^2\alpha}{dt} = -\frac{g}{l}\sin{\alpha}$$
+$$y''=-k\sin{y}$$
+gdzie $k = \frac{g}{l}$.
+\subsection{Metoda Rungego-Kutty rzędu 2}
+\paragraph{}
+Do rozwiązania zadania wykorzystałem metodę Rungego-Kutty rzędu drugiego (metodę Heuna). Każdy krok obliczany był według następujących wzorów.
+$$
+\left\{ \begin{array}{ll}
+y_{1,i+1}=y_{1,i}+h(f_{1,i} + f_1(x_{i+1},y_{1,i}+hf_{1,i},y_{2,i} +hf_{2,i}))/2,\\
+y_{2,i+1}=y_{2,i}+h(f_{2,i} + f_2(x_{i+1},y_{1,i}+hf_{1,i},y_{2,i} +hf_{2,i}))/2
+\end{array} \right.
+$$
+\paragraph{}
+Mamy określone warunki początkowe:
+\begin{itemize}
+\item $y_{1,0} = \alpha_0$ - początkowy kat wychylenia wahadła,
+\item $y_{2,0} = \omega_0$ - początkowa prędkość kątowa.
+\end{itemize}
+\paragraph{}
+Zgodnie z teorią wahadła matematycznego nasze funkcje przyjmują postać:
+\begin{itemize}
+\item $f_{1,i} = f_1(x_i,y_{1,i},y_{2,i}) = y_{2,i}$,
+\item $f_{2,i} = f_2(x_i,y_{1,i},y_{2,i}) = -k \cdot sin(y_{1,i})$
+\end{itemize}
+\section{Warunki i zalozenia}
+\begin{enumerate}
+\item Parametry wejściowe są podane poprawnie ($l, t > 0$, $n \in \mathbb{N}$, $\alpha$, $\epsilon \in \mathbb{R}$).
+\end{enumerate}
+\section{Implementacja}
+\paragraph{}
+Funkcja symulująca ruch wahadła nosi nazwę \textit{wahadlo}, a jej sygnatura wygląda nstępująco:
+\begin{lstlisting}[style=Matlab-editor]
+function [t, y1, y2] = wahadlo(l, t, n, alfa0, omega0)
+\end{lstlisting}
+\vspace{4pt}
+Parametry wejściowe:
+\begin{itemize}
+\item $l$ - długość wahadła (w metrach),
+\item $t$ - czas symulacji (w sekundach),
+\item $n$ - liczba iteracji, jaka ma wykonać algorytm,
+\item $alfa0$ - początkowe wychylenie wahadła,
+\item $omega0$ - początkowa prędkość kątowa.
+\end{itemize}
+Parametry wyjściowe:
+\begin{itemize}
+\item $t$ - wektor zawierający tablicę argumentów,
+\item $f1$ - wektor zawierający wychylenia wahadła dla odpowiadających argumentów,
+\item $f2$ - wektor zawierający prędkości kątowe dla odpowiadających argumentów.
+\end{itemize}
+\paragraph{}
+Na początku ustalamy początkowe parametry zmiennych pomocniczych, oraz wzory funkcji używanych przez metodę. Następnie wykonujemy w pętli kolejne kroki metody Rungego-Kutty, zapisując wyniki do wektorów.
+\paragraph{}
+Dodatkowo, w celach prezentacyjnych napisałem funkcję \textit{drawPlots}, która przyjmuje te same parametry co funkcja \textit{wahadlo} i rysuje zależności wychylenia oraz prędkości kątowej od czasu.
+\pagebreak
+\section{Przykłady i wnioski}
+\subsection{Działanie dla przykładowych danych}
+\paragraph{}
+Sprawdźmy, czy funkcja zwróci wyniki zgodne z oczekiwaniami. Weźmy:
+\begin{itemize}
+\item $l = 0.5m$, $t = 10s$, $n = 1000$, $\alpha_0 = 0$, $\omega_0 = 1 \frac{rad}{s}$
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{fig-1.eps}
+\end{figure}
+\item $l = 0.5m$, $t = 10s$, $n = 1000$, $\alpha_0 = \frac{\pi}{2}$, $\omega_0 = 0
+ \frac{rad}{s}$
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{fig-2.eps}
+\end{figure}
+\item $l = 0.5m$, $t = 10s$, $n = 1000$, $\alpha_0 = \frac{\pi}{6}$, $\omega_0 = 0.5
+ \frac{rad}{s}$
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{fig-3.eps}
+\end{figure}
+\paragraph{}
+Otrzymujemy wyniki zgodne z oczekiwaniami - wahadło osiąga prędkość maksymalna dla wychylenia równego 0; przy maksymalnym wychyleniu prędkość wynosi 0. Ruch jest okresowy - $t = 2 \pi \sqrt{\frac{l}{g}}$, w naszym przypadku $t \simeq 1.41$. Wartość ta pokrywa się z wartością wyznaczoną poprzez obserwację wykresów.
+\end{itemize}
+\subsection{Wpływ zmiany długości nici na ruch wahadła}
+\paragraph{}
+Sprawdzimy jak zwiększanie długości wahadła wpłynie na zachowanie. Weźmy 3 długości - $0.3m$, $0.9m$ i $1.6m$.
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{length.eps}
+\end{figure}
+\paragraph{}
+Obserwujemy, że wraz ze wzrostem długości wahadła wydłuża się jego okres. Wzrasta również jego maksymalne wychylenie.
+\subsection{Wahadło na Księżycu}
+\paragraph{}
+Na Księżycu stała grawitacji $g$ jest mniejsza niż na Ziemi - wynosi około $1.625$. Porównajmy zachowania wahadła na Ziemi i Księżycu. Weźmy parametry wahadła z sekcji 5.1.
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{moon.eps}
+\end{figure}
+\paragraph{}
+Jak widać okres wahadła na Księżycu jest znacznie większy niż na Ziemi - wynosi około $3.4853s$. Również maksymalny kat wychylenia wahadła zwiększa się znacząco dla warunku początkowego podanego dla wychylenia 0.
+\subsection{Duża prędkość początkowa}
+\paragraph{}
+Na koniec ustalmy wysoką prędkość początkową - $\omega = 10 \frac{rad}{s}$.
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{big-omega.eps}
+\end{figure}
+\paragraph{}
+Obserwujemy obracanie się wahadła dookoła punktu zaczepienia. Sytuacja ta jest możliwa wyłącznie dlatego, ze nie bierzemy pod uwagę oporów ruchu - w rzeczywistości takie obroty zostałyby szybko stłumione.
 \end{document}
