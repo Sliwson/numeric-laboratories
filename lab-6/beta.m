@@ -1,4 +1,4 @@
-n = 10000;
+n = 1000;
 
 y1 = zeros(1,n);
 y2 = zeros(1,n);
@@ -7,7 +7,7 @@ x = zeros(1,n);
 y1(1) = 0; %kat wychylenia wahadla
 y2(1) = 2; %predkosc katowa
 
-h = 0.001;
+h = 0.01;
 k = 10;
 
 x(1) = 0;
