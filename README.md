@@ -1,3 +1,3 @@
 # numeric-laboratories
 
-This is my repository for Matlab course projects with reports, which I did on my second year on MiNI faculty at Warsaw University of Technology.
+This is repository for Matlab course projects, which I did on my second year on MiNI faculty at Warsaw University of Technology. Note that the reports are writeen in Polish.
